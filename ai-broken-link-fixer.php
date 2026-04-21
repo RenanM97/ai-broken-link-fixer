@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       AI Broken Link Fixer
- * Plugin URI:        https://github.com/RenanM97
+ * Plugin URI:        https://github.com/RenanM97/ai-broken-link-fixer
  * Description:       Find and fix broken links automatically. Pathfinder AI analyzes your content and suggests the best replacement URLs from your own site — one click to fix.
  * Version:           1.0.0
  * Requires at least: 6.0
