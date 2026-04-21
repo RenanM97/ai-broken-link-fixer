@@ -91,7 +91,7 @@ class ABLF_Pathfinder {
 		}
 
 		// Extract words from the last path segment of the broken URL.
-		$path = parse_url( $broken->broken_url, PHP_URL_PATH );
+		$path = wp_parse_url( $broken->broken_url, PHP_URL_PATH );
 		if ( $path ) {
 			$segment = trim( basename( $path ) );
 			if ( $segment ) {

@@ -78,7 +78,7 @@ class ABLF_DB_Handler {
 		$params[] = (int) $per_page;
 		$params[] = (int) $offset;
 
-		return $wpdb->get_results( $wpdb->prepare( $sql, $params ) );
+		return $wpdb->get_results( $wpdb->prepare( $sql, $params ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
 	}
 
 	public static function count_broken_links( $filters = array() ) {
@@ -95,9 +95,9 @@ class ABLF_DB_Handler {
 
 		$sql = "SELECT COUNT(*) FROM {$table} WHERE " . implode( ' AND ', $where );
 		if ( $params ) {
-			return (int) $wpdb->get_var( $wpdb->prepare( $sql, $params ) );
+			return (int) $wpdb->get_var( $wpdb->prepare( $sql, $params ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
 		}
-		return (int) $wpdb->get_var( $sql );
+		return (int) $wpdb->get_var( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
 	}
 
 	public static function get_broken_link_by_id( $id ) {

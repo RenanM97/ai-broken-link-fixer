@@ -29,7 +29,7 @@ $next_reset_fmt = $next_reset_raw
 <div class="wrap ablf-wrap">
 	<h1><?php esc_html_e( 'AI Broken Link Fixer — Settings', 'ai-broken-link-fixer' ); ?></h1>
 
-	<?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) : ?>
+	<?php if ( isset( $_GET['settings-updated'] ) && sanitize_text_field( wp_unslash( $_GET['settings-updated'] ) ) ) : ?>
 		<div class="notice notice-success is-dismissible"><p><?php esc_html_e( 'Settings saved.', 'ai-broken-link-fixer' ); ?></p></div>
 	<?php endif; ?>
 

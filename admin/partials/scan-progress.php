@@ -14,6 +14,6 @@ $total   = isset( $progress['total'] ) ? (int) $progress['total'] : 0;
 	</div>
 	<div class="ablf-progress-label">
 		<?php /* translators: 1: URLs checked so far, 2: total URLs, 3: percent complete */ ?>
-		<?php printf( esc_html__( 'Checked %1$d of %2$d URLs (%3$d%%)', 'ai-broken-link-fixer' ), $done, $total, $percent ); ?>
+		<?php printf( esc_html__( 'Checked %1$d of %2$d URLs (%3$d%%)', 'ai-broken-link-fixer' ), absint( $done ), absint( $total ), absint( $percent ) ); ?>
 	</div>
 </div>

@@ -89,8 +89,6 @@ register_deactivation_hook( __FILE__, array( 'ABLF_Deactivator', 'deactivate' ) 
  * Boot plugin components on plugins_loaded.
  */
 function ablf_bootstrap() {
-	load_plugin_textdomain( 'ai-broken-link-fixer', false, dirname( ABLF_PLUGIN_BASENAME ) . '/languages' );
-
 	// Run DB migrations for existing installs when DB version is outdated.
 	if ( get_option( 'ablf_db_version', '0' ) !== ABLF_DB_VERSION ) {
 		if ( class_exists( 'ABLF_Activator' ) ) {

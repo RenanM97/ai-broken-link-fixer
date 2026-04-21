@@ -221,12 +221,12 @@ $show_low_credit      = ( $credits_remaining < $low_credit_threshold );
 		<?php if ( $pages > 1 ) : ?>
 			<div class="tablenav bottom">
 				<div class="tablenav-pages">
-					<?php echo paginate_links( array(
+					<?php echo wp_kses_post( paginate_links( array(
 						'base'    => add_query_arg( 'paged', '%#%' ),
 						'format'  => '',
 						'total'   => $pages,
 						'current' => $page,
-					) ); ?>
+					) ) ); ?>
 				</div>
 			</div>
 		<?php endif; ?>

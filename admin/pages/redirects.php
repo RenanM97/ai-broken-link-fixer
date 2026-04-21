@@ -67,7 +67,7 @@ $is_pro = class_exists( 'ABLF_License' ) ? ABLF_License::is_pro() : false;
 	<?php if ( $pages > 1 ) : ?>
 		<div class="tablenav bottom">
 			<div class="tablenav-pages">
-				<?php echo paginate_links( array( 'base' => add_query_arg( 'paged', '%#%' ), 'format' => '', 'total' => $pages, 'current' => $page ) ); ?>
+				<?php echo wp_kses_post( paginate_links( array( 'base' => add_query_arg( 'paged', '%#%' ), 'format' => '', 'total' => $pages, 'current' => $page ) ) ); ?>
 			</div>
 		</div>
 	<?php endif; ?>
