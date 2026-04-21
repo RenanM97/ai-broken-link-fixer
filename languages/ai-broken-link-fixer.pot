@@ -1,0 +1,45 @@
+# AI Broken Link Fixer - Translation Template
+# Copyright (C) 2026
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: AI Broken Link Fixer 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-18 00:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: ai-broken-link-fixer\n"
+
+msgid "AI Broken Link Fixer"
+msgstr ""
+
+msgid "Broken Links"
+msgstr ""
+
+msgid "Dashboard"
+msgstr ""
+
+msgid "Fix Log"
+msgstr ""
+
+msgid "Redirects"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Scan Now"
+msgstr ""
+
+msgid "Ask Pathfinder"
+msgstr ""
+
+msgid "Fix"
+msgstr ""
+
+msgid "Ignore"
+msgstr ""
+
+msgid "Pathfinder suggests:"
+msgstr ""

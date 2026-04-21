@@ -1,0 +1,732 @@
+/* AI Broken Link Fixer — Admin Styles */
+
+.ablf-toast {
+	position: fixed;
+	top: 80px;
+	right: 20px;
+	z-index: 99999;
+	background: #00a32a;
+	color: #fff;
+	padding: 12px 20px;
+	border-radius: 4px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+	font-size: 14px;
+	opacity: 1;
+	transition: opacity 0.8s ease-in-out;
+	min-width: 200px;
+}
+.ablf-toast.error {
+	background: #d63638;
+}
+.ablf-toast.fade-out {
+	opacity: 0;
+}
+
+/* ── Dashboard wrapper ─────────────────────────────────────────── */
+.ablf-wrap {
+	max-width: 1200px;
+	padding: 20px 20px 20px 0;
+}
+/* Alias requested by spec — same element */
+.ablf-dashboard-wrap {
+	padding: 20px 20px 20px 0;
+	max-width: 1200px;
+}
+
+.ablf-stats-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 16px;
+	margin: 20px 0;
+}
+.ablf-stat-card {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 16px 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+}
+.ablf-stat-label { font-size: 13px; color: #646970; text-transform: uppercase; letter-spacing: .3px; }
+.ablf-stat-value { font-size: 28px; font-weight: 600; color: #1d2327; }
+
+.ablf-scan-controls {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 16px 20px;
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+.ablf-last-scan { color: #646970; font-size: 13px; }
+.ablf-progress { flex: 1; min-width: 240px; }
+.ablf-progress-bar {
+	background: #f0f0f1;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	height: 22px;
+	overflow: hidden;
+	position: relative;
+}
+.ablf-progress-fill {
+	display: block;
+	height: 100%;
+	background: linear-gradient(90deg, #2271b1, #72aee6);
+	transition: width .4s ease;
+	min-width: 0;
+}
+.ablf-progress-percent {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 12px;
+	font-weight: 600;
+	color: #1d2327;
+	pointer-events: none;
+}
+.ablf-progress-label {
+	font-size: 12px;
+	color: #646970;
+	margin-top: 6px;
+}
+
+.ablf-filters {
+	display: block;
+	clear: both;
+	margin: 12px 0 0;
+	padding-bottom: 0;
+	float: none !important;
+	width: 100%;
+}
+
+.ablf-bulk-bar {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	clear: both;
+	margin: 8px 0 12px;
+	padding-top: 10px;
+	border-top: 1px solid #f0f0f1;
+}
+.ablf-bulk-count { color: #646970; font-size: 13px; }
+
+/* ── Links table layout ────────────────────────────────────────── */
+.ablf-links-table {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+.ablf-links-table th,
+.ablf-links-table td {
+	padding: 12px 16px;
+	text-align: left;
+	border-bottom: 1px solid #f0f0f0;
+	vertical-align: middle;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+/* Checkbox col */
+.ablf-links-table th:nth-child(1),
+.ablf-links-table td:nth-child(1) {
+	width: 40px;
+	min-width: 40px;
+	padding: 12px 8px;
+	text-align: center;
+	vertical-align: middle;
+}
+.ablf-links-table input[type="checkbox"] {
+	margin: 0;
+	vertical-align: middle;
+	cursor: pointer;
+}
+/* Source Page */
+.ablf-links-table th:nth-child(2),
+.ablf-links-table td:nth-child(2) { width: 18%; }
+/* Broken URL */
+.ablf-links-table th:nth-child(3),
+.ablf-links-table td:nth-child(3) { width: 24%; }
+/* Anchor */
+.ablf-links-table th:nth-child(4),
+.ablf-links-table td:nth-child(4) { width: 10%; }
+/* HTTP */
+.ablf-links-table th:nth-child(5),
+.ablf-links-table td:nth-child(5) { width: 6%; }
+/* First Found */
+.ablf-links-table th:nth-child(6),
+.ablf-links-table td:nth-child(6) { width: 12%; }
+/* Status */
+.ablf-links-table th:nth-child(7),
+.ablf-links-table td:nth-child(7) { width: 8%; }
+/* Actions */
+.ablf-links-table th:nth-child(8),
+.ablf-links-table td:nth-child(8) { width: 20%; white-space: normal; }
+.ablf-links-table td:nth-child(8) {
+	display: table-cell; /* keep table layout */
+}
+.ablf-links-table td.ablf-actions {
+	display: table-cell;
+	vertical-align: middle;
+}
+.ablf-links-table td.ablf-actions .button,
+.ablf-links-table td.ablf-actions button {
+	display: inline-block;
+	margin: 2px 4px 2px 0;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+.ablf-links-table .ablf-url {
+	font-family: monospace;
+	font-size: 12px;
+	color: #50575e;
+}
+.ablf-url-link {
+	font-family: monospace;
+	font-size: 12px;
+	color: #50575e;
+	text-decoration: none;
+}
+.ablf-url-link:hover {
+	color: #2271b1;
+	text-decoration: underline;
+}
+/* FIX 1 — URL column: single-line truncation with hover tooltip */
+.ablf-links-table td.col-url {
+	max-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+/* FIX 2 — Anchor column: same treatment */
+.ablf-links-table td.col-anchor {
+	max-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* ── Status badges ─────────────────────────────────────────────── */
+.ablf-status {
+	display: inline-block;
+	padding: 3px 10px;
+	border-radius: 12px;
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: capitalize;
+}
+.ablf-status-broken  { background: #fce8e8; color: #d63638; }
+.ablf-status-fixed   { background: #edfaef; color: #00a32a; }
+.ablf-status-ignored { background: #f0f0f0; color: #787878; }
+.ablf-status-pending { background: #fff8e5; color: #856404; }
+
+/* ── Action buttons ────────────────────────────────────────────── */
+/* Targets both the spec class names and the actual HTML class names */
+.ablf-btn-pathfinder,
+.ablf-ask-pathfinder {
+	background: #2271b1;
+	color: #fff !important;
+	border: none;
+	padding: 6px 12px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1.4;
+}
+.ablf-btn-pathfinder:hover,
+.ablf-ask-pathfinder:hover {
+	background: #135e96;
+	color: #fff !important;
+}
+.ablf-btn-ignore,
+.ablf-ignore {
+	background: #f6f7f7;
+	color: #2c3338 !important;
+	border: 1px solid #c3c4c7;
+	padding: 6px 12px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 12px;
+	line-height: 1.4;
+}
+.ablf-btn-ignore:hover,
+.ablf-ignore:hover {
+	background: #f0f0f0;
+}
+
+/* Suggestion cell must escape the table-wide nowrap/overflow rules */
+.ablf-links-table td.ablf-suggestion-cell {
+	background: #f6f7f7;
+	padding: 16px 20px !important;
+	white-space: normal !important;
+	overflow: visible !important;
+	text-overflow: clip !important;
+	vertical-align: top !important;
+}
+/* ── Suggestion card shell ─────────────────────────────────────── */
+.ablf-suggestion-card {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	overflow: hidden;
+}
+.ablf-suggestion-card h3 {
+	margin: 0;
+	padding: 14px 16px;
+	font-size: 13px;
+	font-weight: 600;
+	color: #2271b1;
+	border-bottom: 1px solid #f0f0f0;
+	text-align: left;
+}
+
+/* ── One suggestion row (div inside card — NOT the <tr> in dashboard) ── */
+.ablf-sug-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 14px 16px;
+	border-bottom: 1px solid #f0f0f0;
+}
+.ablf-sug-row:last-of-type {
+	border-bottom: none;
+}
+
+/* Left: page info — grows, truncates */
+.ablf-suggestion-info {
+	flex: 1;
+	min-width: 0;
+	padding-right: 4px;
+	text-align: left;
+}
+.ablf-suggestion-title {
+	font-weight: 600;
+	font-size: 14px;
+	color: #1d2327;
+	margin-bottom: 2px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: left;
+}
+.ablf-suggestion-url {
+	font-size: 12px;
+	color: #2271b1;
+	margin-bottom: 6px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-family: monospace;
+	text-align: left;
+}
+.ablf-suggestion-url a {
+	color: #2271b1;
+	text-decoration: none;
+	font-family: monospace;
+	font-size: 12px;
+}
+.ablf-suggestion-url a:hover {
+	text-decoration: underline;
+	color: #135e96;
+}
+.ablf-suggestion-reasoning {
+	font-size: 12px;
+	color: #646970;
+	line-height: 1.5;
+	text-align: left;
+}
+
+/* Middle: confidence bar — fixed width, centred */
+.ablf-suggestion-confidence {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 120px;
+	flex-shrink: 0;
+	gap: 4px;
+}
+.ablf-confidence-bar-wrap {
+	width: 80px;
+	height: 8px;
+	background: #e0e0e0;
+	border-radius: 4px;
+	overflow: hidden;
+}
+.ablf-confidence-bar {
+	height: 100%;
+	background: #00a32a;
+	border-radius: 4px;
+}
+.ablf-confidence-pct {
+	font-size: 12px;
+	font-weight: 600;
+	color: #1d2327;
+}
+
+/* Right: Fix button — fixed width, centred */
+.ablf-suggestion-action {
+	width: 60px;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Footer / empty state */
+.ablf-suggestion-footer {
+	margin: 0;
+	padding: 10px 16px;
+	border-top: 1px solid #f0f0f0;
+	text-align: left;
+}
+.ablf-suggestion-empty {
+	margin: 0;
+	padding: 14px 16px;
+	color: #646970;
+	font-size: 13px;
+}
+
+.ablf-usage-meter { max-width: 360px; }
+.ablf-usage-bar { background: #f0f0f1; border-radius: 4px; height: 8px; overflow: hidden; }
+.ablf-usage-bar span { display: block; height: 100%; background: linear-gradient(90deg, #2271b1, #72aee6); }
+
+.ablf-credit-bar-wrap {
+	max-width: 480px;
+	background: #f0f0f1;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	height: 24px;
+	overflow: hidden;
+	margin: 8px 0 6px;
+	position: relative;
+}
+.ablf-credit-bar {
+	height: 100%;
+	transition: width 0.4s ease, background 0.3s ease;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding-right: 8px;
+	min-width: 32px;
+	box-sizing: border-box;
+}
+.ablf-credit-bar.green  { background: linear-gradient(90deg, #00a32a, #3ccf5a); }
+.ablf-credit-bar.orange { background: linear-gradient(90deg, #dba617, #f0c33c); }
+.ablf-credit-bar.red    { background: linear-gradient(90deg, #d63638, #ef5a5c); }
+.ablf-credit-bar-label {
+	font-size: 12px;
+	font-weight: 600;
+	color: #fff;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+.ablf-credit-bar-caption { max-width: 480px; }
+
+.ablf-test-result { margin-left: 8px; font-size: 13px; }
+.ablf-test-result.success { color: #007017; }
+.ablf-test-result.failure { color: #a00; }
+
+.ablf-upgrade-overlay {
+	background: #fff;
+	border: 2px dashed #dcdcde;
+	border-radius: 8px;
+	padding: 40px;
+	text-align: center;
+	margin: 20px 0;
+}
+.ablf-upgrade-overlay h2 { margin-top: 0; }
+
+.ablf-redirect-add { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+
+.ablf-spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #c3c4c7; border-top-color: #2271b1; border-radius: 50%; animation: ablf-spin 0.6s linear infinite; vertical-align: middle; margin-right: 6px; }
+@keyframes ablf-spin { to { transform: rotate(360deg); } }
+
+/* ── Allowlist tab ─────────────────────────────────────────────── */
+.ablf-allowlist-add {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	flex-wrap: wrap;
+	margin: 16px 0;
+}
+.ablf-allowlist-add .regular-text {
+	width: auto;
+	flex: 1;
+	min-width: 180px;
+	max-width: 320px;
+}
+.ablf-allowlist-feedback {
+	font-size: 13px;
+}
+.ablf-allowlist-table {
+	margin-top: 4px;
+}
+.ablf-allowlist-table code {
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 3px;
+	padding: 2px 6px;
+	font-size: 12px;
+	word-break: break-all;
+}
+
+/* ── Pro feature callout ───────────────────────────────────────── */
+.ablf-pro-callout {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	background: #f0f6fc;
+	border: 1px solid #c5d9ed;
+	border-radius: 6px;
+	padding: 16px 20px;
+	margin-top: 16px;
+	max-width: 480px;
+}
+.ablf-pro-callout-icon {
+	font-size: 20px;
+	line-height: 1;
+	flex-shrink: 0;
+	margin-top: 2px;
+}
+.ablf-pro-callout-body strong {
+	display: block;
+	font-size: 13px;
+	color: #1d2327;
+	margin-bottom: 6px;
+}
+.ablf-pro-callout-body p {
+	margin: 0 0 12px;
+	font-size: 13px;
+	color: #50575e;
+	line-height: 1.5;
+}
+
+/* Plan badge */
+.ablf-plan-badge {
+	display: inline-block;
+	margin-left: 10px;
+	padding: 3px 10px;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1.5;
+	border-radius: 12px;
+	vertical-align: middle;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+.ablf-plan-badge.ablf-plan-free {
+	background: #f0f0f1;
+	color: #50575e;
+	border: 1px solid #c3c4c7;
+}
+.ablf-plan-badge.ablf-plan-pro {
+	background: #e7f5ea;
+	color: #00652d;
+	border: 1px solid #68de7c;
+}
+.ablf-plan-badge.ablf-plan-agency {
+	background: #fff4e5;
+	color: #8a4a00;
+	border: 1px solid #f0b849;
+}
+
+/* ---- Redesigned credit card sections ---- */
+.ablf-credit-card {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	padding: 0;
+	max-width: 760px;
+	overflow: hidden;
+}
+.ablf-credit-section {
+	padding: 20px 24px;
+	border-bottom: 1px solid #f0f0f1;
+}
+.ablf-credit-section:last-child {
+	border-bottom: 0;
+}
+.ablf-credit-section-title {
+	margin: 0 0 6px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #1d2327;
+	text-transform: uppercase;
+	letter-spacing: 0.6px;
+}
+.ablf-section-desc {
+	margin: 0 0 14px;
+	color: #646970;
+	font-size: 13px;
+}
+
+/* Upgrade section */
+.ablf-upgrade-section {
+	background: linear-gradient(135deg, #f6f7f7 0%, #f0f6fc 100%);
+}
+.ablf-plan-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 14px;
+	margin-top: 8px;
+}
+.ablf-plan-tile {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.ablf-plan-tile-name {
+	font-size: 13px;
+	font-weight: 600;
+	color: #2271b1;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+.ablf-plan-tile-price {
+	font-size: 26px;
+	font-weight: 700;
+	color: #1d2327;
+	margin: 4px 0;
+}
+.ablf-plan-tile-price span {
+	font-size: 13px;
+	font-weight: 400;
+	color: #646970;
+}
+.ablf-plan-tile-desc {
+	font-size: 12px;
+	color: #646970;
+	margin-bottom: 12px;
+	min-height: 32px;
+}
+
+/* Current usage */
+.ablf-credit-total {
+	font-size: 16px;
+	margin: 0 0 10px;
+	color: #1d2327;
+}
+.ablf-credit-total strong {
+	font-size: 22px;
+	color: #00652d;
+}
+.ablf-credit-bar-wrap {
+	position: relative;
+	background: #f0f0f1;
+	border-radius: 4px;
+	height: 20px;
+	overflow: hidden;
+	margin: 4px 0 14px;
+}
+.ablf-credit-bar {
+	height: 100%;
+	border-radius: 4px;
+	transition: width 0.3s;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding-right: 6px;
+}
+.ablf-credit-bar.green  { background: #46b450; }
+.ablf-credit-bar.orange { background: #dba617; }
+.ablf-credit-bar.red    { background: #d63638; }
+.ablf-credit-bar-label {
+	color: #fff;
+	font-size: 11px;
+	font-weight: 600;
+}
+.ablf-credit-stats {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-top: 1px solid #f0f0f1;
+}
+.ablf-credit-stats li {
+	display: flex;
+	justify-content: space-between;
+	padding: 8px 0;
+	border-bottom: 1px solid #f0f0f1;
+	font-size: 13px;
+}
+.ablf-credit-stats li:last-child {
+	border-bottom: 0;
+}
+.ablf-credit-stat-label {
+	color: #646970;
+}
+.ablf-credit-stat-value {
+	color: #1d2327;
+	font-variant-numeric: tabular-nums;
+}
+
+/* Top-up tiles */
+.ablf-topup-section {
+	background: #fafafa;
+}
+.ablf-topup-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 12px;
+	margin-top: 8px;
+}
+.ablf-topup-tile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 16px 12px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	text-decoration: none;
+	color: #1d2327;
+	transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.ablf-topup-tile:hover,
+.ablf-topup-tile:focus {
+	border-color: #2271b1;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+	transform: translateY(-1px);
+	color: #1d2327;
+}
+.ablf-topup-tile-amount {
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 1;
+}
+.ablf-topup-tile-label {
+	font-size: 11px;
+	color: #646970;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-top: 2px;
+}
+.ablf-topup-tile-price {
+	font-size: 15px;
+	font-weight: 600;
+	color: #2271b1;
+	margin-top: 8px;
+}
+
+/* Narrow screens */
+@media (max-width: 600px) {
+	.ablf-plan-grid,
+	.ablf-topup-grid {
+		grid-template-columns: 1fr;
+	}
+}
