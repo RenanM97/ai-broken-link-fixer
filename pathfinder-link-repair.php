@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name:       AI Broken Link Fixer
- * Plugin URI:        https://github.com/RenanM97/ai-broken-link-fixer
+ * Plugin Name:       Pathfinder Link Repair
+ * Plugin URI:        https://github.com/RenanM97/pathfinder-link-repair
  * Description:       Find and fix broken links automatically. Pathfinder AI analyzes your content and suggests the best replacement URLs from your own site — one click to fix.
  * Version:           1.0.0
  * Requires at least: 6.0
@@ -10,7 +10,7 @@
  * Author URI:        https://github.com/RenanM97
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       ai-broken-link-fixer
+ * Text Domain:       pathfinder-link-repair
  * Domain Path:       /languages
  */
 
@@ -42,7 +42,7 @@ if ( ! function_exists( 'ablf_fs' ) ) {
 			require_once dirname( __FILE__ ) . '/vendor/freemius/start.php';
 			$ablf_fs = fs_dynamic_init( array(
 				'id'                  => '28106',
-				'slug'                => 'ai-broken-link-fixer',
+				'slug'                => 'pathfinder-link-repair',
 				'type'                => 'plugin',
 				'public_key'          => 'pk_c371de3397266ca182052cd6c7432',
 				'is_premium'          => true,

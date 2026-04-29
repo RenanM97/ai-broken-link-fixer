@@ -8,13 +8,13 @@ class ABLF_Activator {
 	public static function activate() {
 		if ( version_compare( PHP_VERSION, '7.4', '<' ) ) {
 			deactivate_plugins( ABLF_PLUGIN_BASENAME );
-			wp_die( esc_html__( 'AI Broken Link Fixer requires PHP 7.4 or higher.', 'ai-broken-link-fixer' ) );
+			wp_die( esc_html__( 'Pathfinder Link Repair requires PHP 7.4 or higher.', 'pathfinder-link-repair' ) );
 		}
 
 		global $wp_version;
 		if ( version_compare( $wp_version, '6.0', '<' ) ) {
 			deactivate_plugins( ABLF_PLUGIN_BASENAME );
-			wp_die( esc_html__( 'AI Broken Link Fixer requires WordPress 6.0 or higher.', 'ai-broken-link-fixer' ) );
+			wp_die( esc_html__( 'Pathfinder Link Repair requires WordPress 6.0 or higher.', 'pathfinder-link-repair' ) );
 		}
 
 		self::create_tables();

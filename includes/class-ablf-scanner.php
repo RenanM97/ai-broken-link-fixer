@@ -348,7 +348,7 @@ class ABLF_Scanner {
 	public static function ajax_start_scan() {
 		check_ajax_referer( 'ablf_nonce', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'ai-broken-link-fixer' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'pathfinder-link-repair' ) ), 403 );
 		}
 
 		// Extract links and populate the queue only — no HTTP checks here.
@@ -359,7 +359,7 @@ class ABLF_Scanner {
 		spawn_cron();
 
 		wp_send_json_success( array(
-			'message' => __( 'Scan started', 'ai-broken-link-fixer' ),
+			'message' => __( 'Scan started', 'pathfinder-link-repair' ),
 			'total'   => (int) $total,
 		) );
 	}
@@ -367,7 +367,7 @@ class ABLF_Scanner {
 	public static function ajax_scan_progress() {
 		check_ajax_referer( 'ablf_nonce', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'ai-broken-link-fixer' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'pathfinder-link-repair' ) ), 403 );
 		}
 
 		// Recover stale items so the bar never freezes.

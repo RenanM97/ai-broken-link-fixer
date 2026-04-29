@@ -25,16 +25,16 @@ class ABLF_Pathfinder {
 	public static function get_suggestions( $broken_link_id ) {
 		$broken = ABLF_DB_Handler::get_broken_link_by_id( $broken_link_id );
 		if ( ! $broken ) {
-			return new WP_Error( 'ablf_not_found', __( 'Broken link not found.', 'ai-broken-link-fixer' ) );
+			return new WP_Error( 'ablf_not_found', __( 'Broken link not found.', 'pathfinder-link-repair' ) );
 		}
 
 		if ( class_exists( 'ABLF_License' ) && ! ABLF_License::can_use_pathfinder() ) {
-			return new WP_Error( 'ablf_limit', __( 'No credits remaining. Purchase more credits or upgrade your plan.', 'ai-broken-link-fixer' ) );
+			return new WP_Error( 'ablf_limit', __( 'No credits remaining. Purchase more credits or upgrade your plan.', 'pathfinder-link-repair' ) );
 		}
 
 		$api_key = self::get_server_api_key();
 		if ( ! $api_key ) {
-			return new WP_Error( 'ablf_no_key', __( 'Pathfinder is not configured. Please contact support.', 'ai-broken-link-fixer' ) );
+			return new WP_Error( 'ablf_no_key', __( 'Pathfinder is not configured. Please contact support.', 'pathfinder-link-repair' ) );
 		}
 
 		$candidates = self::find_local_candidates( $broken );
@@ -225,7 +225,7 @@ class ABLF_Pathfinder {
 
 		if ( $code < 200 || $code >= 300 ) {
 			/* translators: %d: HTTP status code returned by the Pathfinder API */
-			return new WP_Error( 'ablf_api_http', sprintf( __( 'Pathfinder API returned HTTP %d.', 'ai-broken-link-fixer' ), $code ) );
+			return new WP_Error( 'ablf_api_http', sprintf( __( 'Pathfinder API returned HTTP %d.', 'pathfinder-link-repair' ), $code ) );
 		}
 
 		$decoded = json_decode( $raw, true );
@@ -269,12 +269,12 @@ class ABLF_Pathfinder {
 	public static function ajax_get_suggestions() {
 		check_ajax_referer( 'ablf_nonce', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'ai-broken-link-fixer' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'pathfinder-link-repair' ) ), 403 );
 		}
 
 		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
 		if ( ! $id ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid ID.', 'ai-broken-link-fixer' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid ID.', 'pathfinder-link-repair' ) ) );
 		}
 
 		$result = self::get_suggestions( $id );

@@ -37,23 +37,23 @@ $low_credit_threshold = (int) floor( $monthly_limit * 0.20 );
 $show_low_credit      = ( $credits_remaining < $low_credit_threshold );
 ?>
 <div class="wrap ablf-wrap">
-	<h1><?php esc_html_e( 'Broken Links Dashboard', 'ai-broken-link-fixer' ); ?></h1>
+	<h1><?php esc_html_e( 'Broken Links Dashboard', 'pathfinder-link-repair' ); ?></h1>
 
 	<div class="ablf-stats-grid">
 		<div class="ablf-stat-card">
-			<span class="ablf-stat-label"><?php esc_html_e( 'Broken', 'ai-broken-link-fixer' ); ?></span>
+			<span class="ablf-stat-label"><?php esc_html_e( 'Broken', 'pathfinder-link-repair' ); ?></span>
 			<span class="ablf-stat-value"><?php echo esc_html( (int) $stats['total_broken'] ); ?></span>
 		</div>
 		<div class="ablf-stat-card">
-			<span class="ablf-stat-label"><?php esc_html_e( 'Fixed This Month', 'ai-broken-link-fixer' ); ?></span>
+			<span class="ablf-stat-label"><?php esc_html_e( 'Fixed This Month', 'pathfinder-link-repair' ); ?></span>
 			<span class="ablf-stat-value"><?php echo esc_html( (int) $stats['fixed_this_month'] ); ?></span>
 		</div>
 		<div class="ablf-stat-card">
-			<span class="ablf-stat-label"><?php esc_html_e( 'Ignored', 'ai-broken-link-fixer' ); ?></span>
+			<span class="ablf-stat-label"><?php esc_html_e( 'Ignored', 'pathfinder-link-repair' ); ?></span>
 			<span class="ablf-stat-value"><?php echo esc_html( (int) $stats['ignored'] ); ?></span>
 		</div>
 		<div class="ablf-stat-card">
-			<span class="ablf-stat-label"><?php esc_html_e( 'Credits Remaining', 'ai-broken-link-fixer' ); ?></span>
+			<span class="ablf-stat-label"><?php esc_html_e( 'Credits Remaining', 'pathfinder-link-repair' ); ?></span>
 			<span class="ablf-stat-value"><?php echo esc_html( number_format_i18n( $total_available ) ); ?></span>
 		</div>
 	</div>
@@ -64,23 +64,23 @@ $show_low_credit      = ( $credits_remaining < $low_credit_threshold );
 				<?php
 				printf(
 					/* translators: %s: number of credits remaining */
-					esc_html__( 'Running low on credits — %s credits remaining this month.', 'ai-broken-link-fixer' ),
+					esc_html__( 'Running low on credits — %s credits remaining this month.', 'pathfinder-link-repair' ),
 					'<strong>' . esc_html( number_format_i18n( $credits_remaining ) ) . '</strong>'
 				); ?>
-				&nbsp;<a href="<?php echo esc_url( ABLF_URL_CREDITS_500 ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Buy Credits', 'ai-broken-link-fixer' ); ?></a>
+				&nbsp;<a href="<?php echo esc_url( ABLF_URL_CREDITS_500 ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Buy Credits', 'pathfinder-link-repair' ); ?></a>
 			</p>
 		</div>
 	<?php endif; ?>
 
 	<div class="ablf-scan-controls">
-		<button type="button" class="button button-primary" id="ablf-start-scan"><?php esc_html_e( 'Scan Now', 'ai-broken-link-fixer' ); ?></button>
+		<button type="button" class="button button-primary" id="ablf-start-scan"><?php esc_html_e( 'Scan Now', 'pathfinder-link-repair' ); ?></button>
 		<span class="ablf-last-scan">
 			<?php if ( $last_scan ) : ?>
 				<?php
 				/* translators: %s: date and time of last scan */
-				printf( esc_html__( 'Last scan: %s', 'ai-broken-link-fixer' ), esc_html( $last_scan ) ); ?>
+				printf( esc_html__( 'Last scan: %s', 'pathfinder-link-repair' ), esc_html( $last_scan ) ); ?>
 			<?php else : ?>
-				<?php esc_html_e( 'Last scan: Never', 'ai-broken-link-fixer' ); ?>
+				<?php esc_html_e( 'Last scan: Never', 'pathfinder-link-repair' ); ?>
 			<?php endif; ?>
 		</span>
 		<div class="ablf-progress" id="ablf-scan-progress" style="display:<?php echo ( (int) $progress['queued'] > 0 || (int) $progress['processing'] > 0 ) ? 'block' : 'none'; ?>;">
@@ -110,17 +110,17 @@ $show_low_credit      = ( $credits_remaining < $low_credit_threshold );
 
 	<div class="ablf-bulk-bar">
 		<select id="ablf-bulk-action">
-			<option value=""><?php esc_html_e( 'Bulk actions', 'ai-broken-link-fixer' ); ?></option>
+			<option value=""><?php esc_html_e( 'Bulk actions', 'pathfinder-link-repair' ); ?></option>
 			<?php if ( 'broken' === $current_filter || 'all' === $current_filter ) : ?>
-				<option value="ignore"><?php esc_html_e( 'Ignore Selected', 'ai-broken-link-fixer' ); ?></option>
-				<option value="ask_pathfinder"><?php esc_html_e( 'Ask Pathfinder for Selected', 'ai-broken-link-fixer' ); ?></option>
-				<option value="add_to_allowlist"><?php esc_html_e( 'Add to Allowlist', 'ai-broken-link-fixer' ); ?></option>
+				<option value="ignore"><?php esc_html_e( 'Ignore Selected', 'pathfinder-link-repair' ); ?></option>
+				<option value="ask_pathfinder"><?php esc_html_e( 'Ask Pathfinder for Selected', 'pathfinder-link-repair' ); ?></option>
+				<option value="add_to_allowlist"><?php esc_html_e( 'Add to Allowlist', 'pathfinder-link-repair' ); ?></option>
 			<?php endif; ?>
 			<?php if ( 'ignored' === $current_filter ) : ?>
-				<option value="restore"><?php esc_html_e( 'Restore Selected', 'ai-broken-link-fixer' ); ?></option>
+				<option value="restore"><?php esc_html_e( 'Restore Selected', 'pathfinder-link-repair' ); ?></option>
 			<?php endif; ?>
 		</select>
-		<button type="button" class="button" id="ablf-bulk-apply"><?php esc_html_e( 'Apply', 'ai-broken-link-fixer' ); ?></button>
+		<button type="button" class="button" id="ablf-bulk-apply"><?php esc_html_e( 'Apply', 'pathfinder-link-repair' ); ?></button>
 		<span class="ablf-bulk-count"></span>
 	</div>
 
@@ -128,29 +128,29 @@ $show_low_credit      = ( $credits_remaining < $low_credit_threshold );
 
 		<div class="ablf-allowlist-section">
 			<div class="ablf-allowlist-add">
-				<input type="text" id="ablf-allowlist-pattern" placeholder="<?php esc_attr_e( 'e.g. example.com or https://example.com/page', 'ai-broken-link-fixer' ); ?>" class="regular-text">
+				<input type="text" id="ablf-allowlist-pattern" placeholder="<?php esc_attr_e( 'e.g. example.com or https://example.com/page', 'pathfinder-link-repair' ); ?>" class="regular-text">
 				<select id="ablf-allowlist-type">
-					<option value="domain"><?php esc_html_e( 'Domain', 'ai-broken-link-fixer' ); ?></option>
-					<option value="url"><?php esc_html_e( 'URL', 'ai-broken-link-fixer' ); ?></option>
+					<option value="domain"><?php esc_html_e( 'Domain', 'pathfinder-link-repair' ); ?></option>
+					<option value="url"><?php esc_html_e( 'URL', 'pathfinder-link-repair' ); ?></option>
 				</select>
-				<input type="text" id="ablf-allowlist-note" placeholder="<?php esc_attr_e( 'Note (optional)', 'ai-broken-link-fixer' ); ?>" class="regular-text">
-				<button type="button" class="button button-primary" id="ablf-allowlist-add-btn"><?php esc_html_e( 'Add', 'ai-broken-link-fixer' ); ?></button>
+				<input type="text" id="ablf-allowlist-note" placeholder="<?php esc_attr_e( 'Note (optional)', 'pathfinder-link-repair' ); ?>" class="regular-text">
+				<button type="button" class="button button-primary" id="ablf-allowlist-add-btn"><?php esc_html_e( 'Add', 'pathfinder-link-repair' ); ?></button>
 				<span class="ablf-allowlist-feedback"></span>
 			</div>
 
 			<table class="widefat striped ablf-allowlist-table">
 				<thead>
 					<tr>
-						<th><?php esc_html_e( 'Pattern', 'ai-broken-link-fixer' ); ?></th>
-						<th><?php esc_html_e( 'Type', 'ai-broken-link-fixer' ); ?></th>
-						<th><?php esc_html_e( 'Note', 'ai-broken-link-fixer' ); ?></th>
-						<th><?php esc_html_e( 'Added', 'ai-broken-link-fixer' ); ?></th>
-						<th><?php esc_html_e( 'Actions', 'ai-broken-link-fixer' ); ?></th>
+						<th><?php esc_html_e( 'Pattern', 'pathfinder-link-repair' ); ?></th>
+						<th><?php esc_html_e( 'Type', 'pathfinder-link-repair' ); ?></th>
+						<th><?php esc_html_e( 'Note', 'pathfinder-link-repair' ); ?></th>
+						<th><?php esc_html_e( 'Added', 'pathfinder-link-repair' ); ?></th>
+						<th><?php esc_html_e( 'Actions', 'pathfinder-link-repair' ); ?></th>
 					</tr>
 				</thead>
 				<tbody id="ablf-allowlist-tbody">
 					<?php if ( empty( $allowlist_items ) ) : ?>
-						<tr class="ablf-allowlist-empty"><td colspan="5"><?php esc_html_e( 'No allowlist entries yet. Add URLs or domains to prevent them from being flagged as broken.', 'ai-broken-link-fixer' ); ?></td></tr>
+						<tr class="ablf-allowlist-empty"><td colspan="5"><?php esc_html_e( 'No allowlist entries yet. Add URLs or domains to prevent them from being flagged as broken.', 'pathfinder-link-repair' ); ?></td></tr>
 					<?php else : ?>
 						<?php foreach ( $allowlist_items as $item ) : ?>
 							<tr class="ablf-allowlist-row" data-id="<?php echo esc_attr( $item->id ); ?>">
@@ -158,7 +158,7 @@ $show_low_credit      = ( $credits_remaining < $low_credit_threshold );
 								<td><?php echo esc_html( ucfirst( $item->pattern_type ) ); ?></td>
 								<td><?php echo esc_html( $item->note ); ?></td>
 								<td><?php echo esc_html( date_i18n( 'M j, Y', strtotime( $item->created_at ) ) ); ?></td>
-								<td><button type="button" class="button ablf-allowlist-remove" data-id="<?php echo esc_attr( $item->id ); ?>"><?php esc_html_e( 'Remove', 'ai-broken-link-fixer' ); ?></button></td>
+								<td><button type="button" class="button ablf-allowlist-remove" data-id="<?php echo esc_attr( $item->id ); ?>"><?php esc_html_e( 'Remove', 'pathfinder-link-repair' ); ?></button></td>
 							</tr>
 						<?php endforeach; ?>
 					<?php endif; ?>
@@ -172,18 +172,18 @@ $show_low_credit      = ( $credits_remaining < $low_credit_threshold );
 			<thead>
 				<tr>
 					<th class="check-column"><input type="checkbox" id="ablf-select-all"></th>
-					<th><?php esc_html_e( 'Source Page', 'ai-broken-link-fixer' ); ?></th>
-					<th><?php esc_html_e( 'Broken URL', 'ai-broken-link-fixer' ); ?></th>
-					<th><?php esc_html_e( 'Anchor', 'ai-broken-link-fixer' ); ?></th>
-					<th><?php esc_html_e( 'HTTP', 'ai-broken-link-fixer' ); ?></th>
-					<th><?php esc_html_e( 'First Found', 'ai-broken-link-fixer' ); ?></th>
-					<th><?php esc_html_e( 'Status', 'ai-broken-link-fixer' ); ?></th>
-					<th><?php esc_html_e( 'Actions', 'ai-broken-link-fixer' ); ?></th>
+					<th><?php esc_html_e( 'Source Page', 'pathfinder-link-repair' ); ?></th>
+					<th><?php esc_html_e( 'Broken URL', 'pathfinder-link-repair' ); ?></th>
+					<th><?php esc_html_e( 'Anchor', 'pathfinder-link-repair' ); ?></th>
+					<th><?php esc_html_e( 'HTTP', 'pathfinder-link-repair' ); ?></th>
+					<th><?php esc_html_e( 'First Found', 'pathfinder-link-repair' ); ?></th>
+					<th><?php esc_html_e( 'Status', 'pathfinder-link-repair' ); ?></th>
+					<th><?php esc_html_e( 'Actions', 'pathfinder-link-repair' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php if ( empty( $links ) ) : ?>
-					<tr><td colspan="8"><?php esc_html_e( 'No broken links found. Run a scan to get started.', 'ai-broken-link-fixer' ); ?></td></tr>
+					<tr><td colspan="8"><?php esc_html_e( 'No broken links found. Run a scan to get started.', 'pathfinder-link-repair' ); ?></td></tr>
 				<?php else : ?>
 					<?php foreach ( $links as $link ) :
 						$post_title = get_the_title( (int) $link->source_post_id );
@@ -199,12 +199,12 @@ $show_low_credit      = ( $credits_remaining < $low_credit_threshold );
 							<td><span class="ablf-status ablf-status-<?php echo esc_attr( $link->status ); ?>"><?php echo esc_html( $link->status ); ?></span></td>
 							<td class="ablf-actions">
 								<?php if ( 'broken' === $link->status ) : ?>
-									<button type="button" class="button button-primary ablf-ask-pathfinder" data-id="<?php echo esc_attr( $link->id ); ?>"><?php esc_html_e( 'Ask Pathfinder', 'ai-broken-link-fixer' ); ?></button>
-									<button type="button" class="button ablf-ignore" data-id="<?php echo esc_attr( $link->id ); ?>"><?php esc_html_e( 'Ignore', 'ai-broken-link-fixer' ); ?></button>
+									<button type="button" class="button button-primary ablf-ask-pathfinder" data-id="<?php echo esc_attr( $link->id ); ?>"><?php esc_html_e( 'Ask Pathfinder', 'pathfinder-link-repair' ); ?></button>
+									<button type="button" class="button ablf-ignore" data-id="<?php echo esc_attr( $link->id ); ?>"><?php esc_html_e( 'Ignore', 'pathfinder-link-repair' ); ?></button>
 								<?php elseif ( 'ignored' === $link->status ) : ?>
-									<button type="button" class="button ablf-restore" data-id="<?php echo esc_attr( $link->id ); ?>"><?php esc_html_e( 'Restore', 'ai-broken-link-fixer' ); ?></button>
+									<button type="button" class="button ablf-restore" data-id="<?php echo esc_attr( $link->id ); ?>"><?php esc_html_e( 'Restore', 'pathfinder-link-repair' ); ?></button>
 								<?php elseif ( 'fixed' === $link->status ) : ?>
-									<button type="button" class="button ablf-reopen" data-id="<?php echo esc_attr( $link->id ); ?>"><?php esc_html_e( 'Mark as Broken', 'ai-broken-link-fixer' ); ?></button>
+									<button type="button" class="button ablf-reopen" data-id="<?php echo esc_attr( $link->id ); ?>"><?php esc_html_e( 'Mark as Broken', 'pathfinder-link-repair' ); ?></button>
 								<?php else : ?>
 									<span class="description"><?php echo esc_html( $link->status ); ?></span>
 								<?php endif; ?>

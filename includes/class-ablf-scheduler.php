@@ -17,18 +17,18 @@ class ABLF_Scheduler {
 	public static function add_custom_intervals( $schedules ) {
 		$schedules['ablf_every_5_minutes'] = array(
 			'interval' => 300,
-			'display'  => __( 'Every 5 Minutes (ABLF)', 'ai-broken-link-fixer' ),
+			'display'  => __( 'Every 5 Minutes (ABLF)', 'pathfinder-link-repair' ),
 		);
 		if ( ! isset( $schedules['weekly'] ) ) {
 			$schedules['weekly'] = array(
 				'interval' => WEEK_IN_SECONDS,
-				'display'  => __( 'Once Weekly', 'ai-broken-link-fixer' ),
+				'display'  => __( 'Once Weekly', 'pathfinder-link-repair' ),
 			);
 		}
 		if ( ! isset( $schedules['monthly'] ) ) {
 			$schedules['monthly'] = array(
 				'interval' => 30 * DAY_IN_SECONDS,
-				'display'  => __( 'Once Monthly', 'ai-broken-link-fixer' ),
+				'display'  => __( 'Once Monthly', 'pathfinder-link-repair' ),
 			);
 		}
 		return $schedules;

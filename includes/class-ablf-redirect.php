@@ -99,22 +99,22 @@ class ABLF_Redirect {
 
 	public static function ajax_add_redirect() {
 		if ( ! check_ajax_referer( 'ablf_nonce', 'nonce', false ) ) {
-			wp_send_json_error( array( 'message' => __( 'Nonce verification failed.', 'ai-broken-link-fixer' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Nonce verification failed.', 'pathfinder-link-repair' ) ) );
 			return;
 		}
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'ai-broken-link-fixer' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'pathfinder-link-repair' ) ) );
 			return;
 		}
 		$from = isset( $_POST['from_url'] ) ? sanitize_text_field( wp_unslash( $_POST['from_url'] ) ) : '';
 		$to   = isset( $_POST['to_url'] ) ? sanitize_text_field( wp_unslash( $_POST['to_url'] ) ) : '';
 		if ( ! $from || ! $to ) {
-			wp_send_json_error( array( 'message' => __( 'Both URLs are required.', 'ai-broken-link-fixer' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Both URLs are required.', 'pathfinder-link-repair' ) ) );
 			return;
 		}
 		$id = self::create_redirect( $from, $to );
 		if ( ! $id ) {
-			wp_send_json_error( array( 'message' => __( 'Could not add redirect. URLs may be identical or invalid.', 'ai-broken-link-fixer' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Could not add redirect. URLs may be identical or invalid.', 'pathfinder-link-repair' ) ) );
 			return;
 		}
 
@@ -145,11 +145,11 @@ class ABLF_Redirect {
 	public static function ajax_delete_redirect() {
 		check_ajax_referer( 'ablf_nonce', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'ai-broken-link-fixer' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'pathfinder-link-repair' ) ), 403 );
 		}
 		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
 		if ( ! $id ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid ID.', 'ai-broken-link-fixer' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid ID.', 'pathfinder-link-repair' ) ) );
 		}
 		self::delete_redirect( $id );
 		wp_send_json_success( array( 'id' => $id ) );

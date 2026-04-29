@@ -6,12 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 $is_pro = class_exists( 'ABLF_License' ) ? ABLF_License::is_pro() : false;
 ?>
 <div class="wrap ablf-wrap">
-	<h1><?php esc_html_e( 'Redirects', 'ai-broken-link-fixer' ); ?></h1>
+	<h1><?php esc_html_e( 'Redirects', 'pathfinder-link-repair' ); ?></h1>
 
 	<?php if ( ! $is_pro ) : ?>
 		<div class="ablf-upgrade-overlay">
-			<h2>🔒 <?php esc_html_e( 'Pro feature', 'ai-broken-link-fixer' ); ?></h2>
-			<p><?php esc_html_e( 'Upgrade to Pro to manage 301 redirects directly from WordPress.', 'ai-broken-link-fixer' ); ?></p>
+			<h2>🔒 <?php esc_html_e( 'Pro feature', 'pathfinder-link-repair' ); ?></h2>
+			<p><?php esc_html_e( 'Upgrade to Pro to manage 301 redirects directly from WordPress.', 'pathfinder-link-repair' ); ?></p>
 		</div>
 		<?php return; ?>
 	<?php endif; ?>
@@ -19,7 +19,7 @@ $is_pro = class_exists( 'ABLF_License' ) ? ABLF_License::is_pro() : false;
 	<?php
 	if ( isset( $_GET['delete'] ) && check_admin_referer( 'ablf_delete_redirect' ) ) {
 		ABLF_Redirect::delete_redirect( absint( $_GET['delete'] ) );
-		echo '<div class="notice notice-success ablf-notice"><p>' . esc_html__( 'Redirect deleted.', 'ai-broken-link-fixer' ) . '</p></div>';
+		echo '<div class="notice notice-success ablf-notice"><p>' . esc_html__( 'Redirect deleted.', 'pathfinder-link-repair' ) . '</p></div>';
 	}
 
 	$page     = isset( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1;
@@ -29,27 +29,27 @@ $is_pro = class_exists( 'ABLF_License' ) ? ABLF_License::is_pro() : false;
 	$pages    = max( 1, (int) ceil( $total / $per_page ) );
 	?>
 
-	<h2><?php esc_html_e( 'Add Redirect', 'ai-broken-link-fixer' ); ?></h2>
+	<h2><?php esc_html_e( 'Add Redirect', 'pathfinder-link-repair' ); ?></h2>
 	<form id="ablf-add-redirect-form" method="post" class="ablf-redirect-add">
 		<input type="text" name="from_url" id="ablf-redirect-from" placeholder="/old-page-slug" required class="regular-text">
 		<input type="text" name="to_url" id="ablf-redirect-to" placeholder="/new-page-slug" required class="regular-text">
-		<button type="submit" class="button button-primary"><?php esc_html_e( 'Add', 'ai-broken-link-fixer' ); ?></button>
+		<button type="submit" class="button button-primary"><?php esc_html_e( 'Add', 'pathfinder-link-repair' ); ?></button>
 	</form>
 
 	<table class="widefat striped">
 		<thead>
 			<tr>
-				<th><?php esc_html_e( 'From URL', 'ai-broken-link-fixer' ); ?></th>
-				<th><?php esc_html_e( 'To URL', 'ai-broken-link-fixer' ); ?></th>
-				<th><?php esc_html_e( 'HTTP', 'ai-broken-link-fixer' ); ?></th>
-				<th><?php esc_html_e( 'Hits', 'ai-broken-link-fixer' ); ?></th>
-				<th><?php esc_html_e( 'Created', 'ai-broken-link-fixer' ); ?></th>
+				<th><?php esc_html_e( 'From URL', 'pathfinder-link-repair' ); ?></th>
+				<th><?php esc_html_e( 'To URL', 'pathfinder-link-repair' ); ?></th>
+				<th><?php esc_html_e( 'HTTP', 'pathfinder-link-repair' ); ?></th>
+				<th><?php esc_html_e( 'Hits', 'pathfinder-link-repair' ); ?></th>
+				<th><?php esc_html_e( 'Created', 'pathfinder-link-repair' ); ?></th>
 				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php if ( empty( $rows ) ) : ?>
-				<tr><td colspan="6"><?php esc_html_e( 'No redirects yet.', 'ai-broken-link-fixer' ); ?></td></tr>
+				<tr><td colspan="6"><?php esc_html_e( 'No redirects yet.', 'pathfinder-link-repair' ); ?></td></tr>
 			<?php else : foreach ( $rows as $r ) :
 			?>
 				<tr>
@@ -58,7 +58,7 @@ $is_pro = class_exists( 'ABLF_License' ) ? ABLF_License::is_pro() : false;
 					<td><?php echo esc_html( (int) $r->http_code ); ?></td>
 					<td><?php echo esc_html( (int) $r->hit_count ); ?></td>
 					<td><?php echo esc_html( $r->created_at ); ?></td>
-					<td><button type="button" class="button-link-delete ablf-delete-redirect" data-id="<?php echo esc_attr( $r->id ); ?>"><?php esc_html_e( 'Delete', 'ai-broken-link-fixer' ); ?></button></td>
+					<td><button type="button" class="button-link-delete ablf-delete-redirect" data-id="<?php echo esc_attr( $r->id ); ?>"><?php esc_html_e( 'Delete', 'pathfinder-link-repair' ); ?></button></td>
 				</tr>
 			<?php endforeach; endif; ?>
 		</tbody>

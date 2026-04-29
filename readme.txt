@@ -1,4 +1,4 @@
-=== AI Broken Link Fixer ===
+=== Pathfinder Link Repair ===
 Contributors: renanmarques
 Tags: broken links, link checker, AI, SEO, link fixer
 Requires at least: 6.0
@@ -12,9 +12,9 @@ Automatically find and fix broken links on your WordPress site using Pathfinder 
 
 == Description ==
 
-**AI Broken Link Fixer** is the only WordPress plugin that doesn't just find broken links — it fixes them intelligently.
+**Pathfinder Link Repair** is the only WordPress plugin that doesn't just find broken links — it fixes them intelligently.
 
-Most broken link plugins stop at detection. They hand you a list of dead URLs and leave you to figure out the rest. AI Broken Link Fixer goes further. Its built-in AI engine, **Pathfinder**, analyzes the context around every broken link — the anchor text, the surrounding paragraph, the page it lives on — and suggests the best replacement URLs from within your own site. One click and the link is fixed.
+Most broken link plugins stop at detection. They hand you a list of dead URLs and leave you to figure out the rest. Pathfinder Link Repair goes further. Its built-in AI engine, **Pathfinder**, analyzes the context around every broken link — the anchor text, the surrounding paragraph, the page it lives on — and suggests the best replacement URLs from within your own site. One click and the link is fixed.
 
 No broken link should stay broken. Pathfinder makes sure of it.
 
@@ -29,7 +29,7 @@ Every broken link on your site is a problem:
 * **Damaged credibility** — Broken links make your site look abandoned, especially on cornerstone content that readers trust.
 * **Wasted link equity** — Internal links pass SEO value between your pages. A broken internal link is wasted ranking potential.
 
-Fixing broken links manually is tedious. Finding the right replacement for each one is even harder. AI Broken Link Fixer automates both.
+Fixing broken links manually is tedious. Finding the right replacement for each one is even harder. Pathfinder Link Repair automates both.
 
 ---
 
@@ -141,7 +141,7 @@ Need more Pathfinder suggestions before your monthly reset? Top-up credits never
 
 = Who Is This For? =
 
-**Content-heavy sites** — Blogs, news sites, and magazines with hundreds of posts accumulate broken links over time as external URLs change and internal content gets reorganized. AI Broken Link Fixer keeps your link profile clean automatically.
+**Content-heavy sites** — Blogs, news sites, and magazines with hundreds of posts accumulate broken links over time as external URLs change and internal content gets reorganized. Pathfinder Link Repair keeps your link profile clean automatically.
 
 **SEO-focused site owners** — Broken links are a known negative SEO signal. Cleaning them up is one of the fastest wins available in technical SEO. Pathfinder makes it fast enough to do regularly.
 
@@ -155,7 +155,7 @@ Need more Pathfinder suggestions before your monthly reset? Top-up credits never
 
 = Privacy Policy =
 
-AI Broken Link Fixer sends link context data (broken URL, anchor text, surrounding paragraph text, and candidate replacement URLs from your site) to the Anthropic API for processing by the Pathfinder AI engine. No personally identifiable information is included in these requests. No data is stored by Anthropic beyond the duration of the API request.
+Pathfinder Link Repair sends link context data (broken URL, anchor text, surrounding paragraph text, and candidate replacement URLs from your site) to the Anthropic API for processing by the Pathfinder AI engine. No personally identifiable information is included in these requests. No data is stored by Anthropic beyond the duration of the API request.
 
 The plugin does not collect, store, or transmit any visitor data. All data stored by the plugin (broken links, suggestions, fix log, redirects) lives entirely in your WordPress database.
 
@@ -169,7 +169,7 @@ For Pro and Agency users, license validation is handled by Freemius. See the [Fr
 
 1. Log in to your WordPress admin dashboard
 2. Go to **Plugins → Add New**
-3. Search for **AI Broken Link Fixer**
+3. Search for **Pathfinder Link Repair**
 4. Click **Install Now** next to the plugin
 5. Click **Activate**
 6. Go to **Broken Links** in your admin sidebar to get started
@@ -223,7 +223,7 @@ Pro and Agency users do not need an Anthropic API key. Pathfinder is fully manag
 
 = Do I need technical knowledge to use this plugin? =
 
-No. AI Broken Link Fixer is designed for anyone who manages a WordPress site. The dashboard is straightforward — scan, review suggestions, click Fix. No coding required at any point.
+No. Pathfinder Link Repair is designed for anyone who manages a WordPress site. The dashboard is straightforward — scan, review suggestions, click Fix. No coding required at any point.
 
 = How does Pathfinder find replacement URLs? =
 
@@ -302,7 +302,7 @@ The Agency plan supports unlimited sites. For WordPress multisite networks, inst
 
 = Where can I get support? =
 
-* For general questions and community support visit the [WordPress.org support forum](https://wordpress.org/support/plugin/ai-broken-link-fixer/)
+* For general questions and community support visit the [WordPress.org support forum](https://wordpress.org/support/plugin/pathfinder-link-repair/)
 * For Pro and Agency license holders, priority support is available through your Freemius account dashboard
 
 ---
@@ -343,4 +343,4 @@ The Agency plan supports unlimited sites. For WordPress multisite networks, inst
 == Upgrade Notice ==
 
 = 1.0.0 =
-Initial release of AI Broken Link Fixer. Install and activate to start finding and fixing broken links with Pathfinder AI.
+Initial release of Pathfinder Link Repair. Install and activate to start finding and fixing broken links with Pathfinder AI.

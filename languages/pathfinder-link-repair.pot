@@ -1,17 +1,17 @@
-# AI Broken Link Fixer - Translation Template
+# Pathfinder Link Repair - Translation Template
 # Copyright (C) 2026
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: AI Broken Link Fixer 1.0.0\n"
+"Project-Id-Version: Pathfinder Link Repair 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-18 00:00+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Domain: ai-broken-link-fixer\n"
+"X-Domain: pathfinder-link-repair\n"
 
-msgid "AI Broken Link Fixer"
+msgid "Pathfinder Link Repair"
 msgstr ""
 
 msgid "Broken Links"

@@ -667,11 +667,11 @@ class ABLF_DB_Handler {
 	public static function ajax_ignore_link() {
 		check_ajax_referer( 'ablf_nonce', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'ai-broken-link-fixer' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'pathfinder-link-repair' ) ), 403 );
 		}
 		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
 		if ( ! $id ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid ID.', 'ai-broken-link-fixer' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid ID.', 'pathfinder-link-repair' ) ) );
 		}
 		self::ignore_link( $id );
 		wp_send_json_success( array( 'id' => $id ) );
@@ -680,11 +680,11 @@ class ABLF_DB_Handler {
 	public static function ajax_restore_link() {
 		check_ajax_referer( 'ablf_nonce', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'ai-broken-link-fixer' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'pathfinder-link-repair' ) ), 403 );
 		}
 		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
 		if ( ! $id ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid ID.', 'ai-broken-link-fixer' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid ID.', 'pathfinder-link-repair' ) ) );
 		}
 		self::restore_link( $id );
 		wp_send_json_success( array( 'id' => $id ) );

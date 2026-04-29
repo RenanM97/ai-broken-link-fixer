@@ -22,8 +22,8 @@ class ABLF_Admin {
 		$cap = 'manage_options';
 
 		add_menu_page(
-			__( 'Broken Links', 'ai-broken-link-fixer' ),
-			__( 'Broken Links', 'ai-broken-link-fixer' ),
+			__( 'Broken Links', 'pathfinder-link-repair' ),
+			__( 'Broken Links', 'pathfinder-link-repair' ),
 			$cap,
 			self::MENU_SLUG,
 			array( __CLASS__, 'render_dashboard' ),
@@ -33,8 +33,8 @@ class ABLF_Admin {
 
 		add_submenu_page(
 			self::MENU_SLUG,
-			__( 'Dashboard', 'ai-broken-link-fixer' ),
-			__( 'Dashboard', 'ai-broken-link-fixer' ),
+			__( 'Dashboard', 'pathfinder-link-repair' ),
+			__( 'Dashboard', 'pathfinder-link-repair' ),
 			$cap,
 			self::MENU_SLUG,
 			array( __CLASS__, 'render_dashboard' )
@@ -42,8 +42,8 @@ class ABLF_Admin {
 
 		add_submenu_page(
 			self::MENU_SLUG,
-			__( 'Redirects', 'ai-broken-link-fixer' ),
-			__( 'Redirects', 'ai-broken-link-fixer' ),
+			__( 'Redirects', 'pathfinder-link-repair' ),
+			__( 'Redirects', 'pathfinder-link-repair' ),
 			$cap,
 			'ablf-redirects',
 			array( __CLASS__, 'render_redirects' )
@@ -51,8 +51,8 @@ class ABLF_Admin {
 
 		add_submenu_page(
 			self::MENU_SLUG,
-			__( 'Fix Log', 'ai-broken-link-fixer' ),
-			__( 'Fix Log', 'ai-broken-link-fixer' ),
+			__( 'Fix Log', 'pathfinder-link-repair' ),
+			__( 'Fix Log', 'pathfinder-link-repair' ),
 			$cap,
 			'ablf-log',
 			array( __CLASS__, 'render_log' )
@@ -60,8 +60,8 @@ class ABLF_Admin {
 
 		add_submenu_page(
 			self::MENU_SLUG,
-			__( 'Settings', 'ai-broken-link-fixer' ),
-			__( 'Settings', 'ai-broken-link-fixer' ),
+			__( 'Settings', 'pathfinder-link-repair' ),
+			__( 'Settings', 'pathfinder-link-repair' ),
 			$cap,
 			'ablf-settings',
 			array( __CLASS__, 'render_settings' )
@@ -108,16 +108,16 @@ class ABLF_Admin {
 			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 			'nonce'   => wp_create_nonce( 'ablf_nonce' ),
 			'i18n'    => array(
-				'confirmFix'     => __( 'Replace this link in the post?', 'ai-broken-link-fixer' ),
-				'confirmIgnore'  => __( 'Ignore this broken link?', 'ai-broken-link-fixer' ),
-				'confirmClear'   => __( 'This will permanently delete all scan data. Continue?', 'ai-broken-link-fixer' ),
-				'thinking'       => __( 'Pathfinder is thinking…', 'ai-broken-link-fixer' ),
-				'scanning'       => __( 'Scanning…', 'ai-broken-link-fixer' ),
+				'confirmFix'     => __( 'Replace this link in the post?', 'pathfinder-link-repair' ),
+				'confirmIgnore'  => __( 'Ignore this broken link?', 'pathfinder-link-repair' ),
+				'confirmClear'   => __( 'This will permanently delete all scan data. Continue?', 'pathfinder-link-repair' ),
+				'thinking'       => __( 'Pathfinder is thinking…', 'pathfinder-link-repair' ),
+				'scanning'       => __( 'Scanning…', 'pathfinder-link-repair' ),
 				/* translators: %1$s: number of URLs checked, %2$s: total URLs */
-				'checking'       => __( 'Checking %1$s of %2$s URLs…', 'ai-broken-link-fixer' ),
-				'connectionOk'   => __( 'Connection successful.', 'ai-broken-link-fixer' ),
-				'connectionFail' => __( 'Connection failed.', 'ai-broken-link-fixer' ),
-				'error'          => __( 'Something went wrong.', 'ai-broken-link-fixer' ),
+				'checking'       => __( 'Checking %1$s of %2$s URLs…', 'pathfinder-link-repair' ),
+				'connectionOk'   => __( 'Connection successful.', 'pathfinder-link-repair' ),
+				'connectionFail' => __( 'Connection failed.', 'pathfinder-link-repair' ),
+				'error'          => __( 'Something went wrong.', 'pathfinder-link-repair' ),
 			),
 		);
 		wp_localize_script( 'ablf-scanner', 'ABLF', $localized );
@@ -135,14 +135,14 @@ class ABLF_Admin {
 		           || get_option( 'ablf_anthropic_api_key' );
 		if ( ! $key_set ) {
 			echo '<div class="notice notice-warning"><p>' .
-				esc_html__( 'Pathfinder API key is not set. Add it in Settings to enable AI suggestions.', 'ai-broken-link-fixer' ) .
+				esc_html__( 'Pathfinder API key is not set. Add it in Settings to enable AI suggestions.', 'pathfinder-link-repair' ) .
 				' <a href="' . esc_url( admin_url( 'admin.php?page=ablf-settings' ) ) . '">' .
-				esc_html__( 'Go to Settings', 'ai-broken-link-fixer' ) . '</a></p></div>';
+				esc_html__( 'Go to Settings', 'pathfinder-link-repair' ) . '</a></p></div>';
 		}
 
 		if ( class_exists( 'ABLF_License' ) && ! ABLF_License::can_use_pathfinder() ) {
 			echo '<div class="notice notice-info"><p>' .
-				esc_html__( 'You have reached the free Pathfinder limit for this month. Upgrade to Pro for unlimited suggestions.', 'ai-broken-link-fixer' ) .
+				esc_html__( 'You have reached the free Pathfinder limit for this month. Upgrade to Pro for unlimited suggestions.', 'pathfinder-link-repair' ) .
 				'</p></div>';
 		}
 	}
@@ -200,7 +200,7 @@ class ABLF_Admin {
 			add_settings_error(
 				'ablf_scan_frequency',
 				'ablf_pro_required',
-				__( 'Scheduled scans are a Pro feature. Upgrade to unlock automatic scanning.', 'ai-broken-link-fixer' ),
+				__( 'Scheduled scans are a Pro feature. Upgrade to unlock automatic scanning.', 'pathfinder-link-repair' ),
 				'warning'
 			);
 			return 'manual';
@@ -226,11 +226,11 @@ class ABLF_Admin {
 		}
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Permission denied.', 'ai-broken-link-fixer' ) );
+			wp_die( esc_html__( 'Permission denied.', 'pathfinder-link-repair' ) );
 		}
 
 		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['nonce'] ) ), 'ablf_export' ) ) {
-			wp_die( esc_html__( 'Security check failed.', 'ai-broken-link-fixer' ) );
+			wp_die( esc_html__( 'Security check failed.', 'pathfinder-link-repair' ) );
 		}
 
 		$rows = ABLF_DB_Handler::get_fix_log( 1, 100000 );
@@ -278,7 +278,7 @@ class ABLF_Admin {
 
 	private static function render_page( $slug ) {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Permission denied.', 'ai-broken-link-fixer' ) );
+			wp_die( esc_html__( 'Permission denied.', 'pathfinder-link-repair' ) );
 		}
 		$file = ABLF_PLUGIN_DIR . 'admin/pages/' . $slug . '.php';
 		if ( file_exists( $file ) ) {
@@ -302,14 +302,14 @@ class ABLF_Admin {
 	public static function ajax_bulk_action() {
 		check_ajax_referer( 'ablf_nonce', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'ai-broken-link-fixer' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'pathfinder-link-repair' ) ), 403 );
 		}
 
 		$action = isset( $_POST['bulk_action'] ) ? sanitize_text_field( wp_unslash( $_POST['bulk_action'] ) ) : '';
 		$ids    = isset( $_POST['ids'] ) ? array_map( 'absint', (array) $_POST['ids'] ) : array();
 
 		if ( empty( $action ) || empty( $ids ) ) {
-			wp_send_json_error( array( 'message' => __( 'Nothing to do.', 'ai-broken-link-fixer' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Nothing to do.', 'pathfinder-link-repair' ) ) );
 		}
 
 		$processed = 0;
@@ -347,13 +347,13 @@ class ABLF_Admin {
 	public static function ajax_add_allowlist() {
 		check_ajax_referer( 'ablf_nonce', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'ai-broken-link-fixer' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'pathfinder-link-repair' ) ), 403 );
 		}
 		$pattern = isset( $_POST['pattern'] ) ? sanitize_text_field( wp_unslash( $_POST['pattern'] ) ) : '';
 		$type    = isset( $_POST['pattern_type'] ) ? sanitize_text_field( wp_unslash( $_POST['pattern_type'] ) ) : 'url';
 		$note    = isset( $_POST['note'] ) ? sanitize_text_field( wp_unslash( $_POST['note'] ) ) : '';
 		if ( ! $pattern ) {
-			wp_send_json_error( array( 'message' => __( 'Pattern is required.', 'ai-broken-link-fixer' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Pattern is required.', 'pathfinder-link-repair' ) ) );
 		}
 		ABLF_DB_Handler::add_to_allowlist( $pattern, $type, $note, get_current_user_id() );
 		$id = (int) $GLOBALS['wpdb']->insert_id;
@@ -371,11 +371,11 @@ class ABLF_Admin {
 	public static function ajax_remove_allowlist() {
 		check_ajax_referer( 'ablf_nonce', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'ai-broken-link-fixer' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'pathfinder-link-repair' ) ), 403 );
 		}
 		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
 		if ( ! $id ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid ID.', 'ai-broken-link-fixer' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid ID.', 'pathfinder-link-repair' ) ) );
 		}
 		ABLF_DB_Handler::remove_from_allowlist( $id );
 		wp_send_json_success( array( 'id' => $id ) );

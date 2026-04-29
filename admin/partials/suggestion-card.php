@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /** @var array  $suggestions */
 ?>
 <div class="ablf-suggestion-card" data-broken-id="<?php echo esc_attr( $broken->id ); ?>">
-	<h3>🧭 <?php esc_html_e( 'Pathfinder suggests:', 'ai-broken-link-fixer' ); ?></h3>
+	<h3>🧭 <?php esc_html_e( 'Pathfinder suggests:', 'pathfinder-link-repair' ); ?></h3>
 
 	<?php if ( ! empty( $suggestions ) ) : ?>
 		<?php foreach ( $suggestions as $s ) :
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						data-id="<?php echo esc_attr( $broken->id ); ?>"
 						data-suggestion="<?php echo esc_attr( isset( $s['id'] ) ? $s['id'] : 0 ); ?>"
 						data-url="<?php echo esc_attr( $s['url'] ); ?>">
-						<?php esc_html_e( 'Fix', 'ai-broken-link-fixer' ); ?>
+						<?php esc_html_e( 'Fix', 'pathfinder-link-repair' ); ?>
 					</button>
 				</div>
 
@@ -43,9 +43,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php endforeach; ?>
 
 		<p class="ablf-suggestion-footer">
-			<a href="#" class="ablf-ignore-from-suggestion" data-id="<?php echo esc_attr( $broken->id ); ?>"><?php esc_html_e( 'None of these — ignore', 'ai-broken-link-fixer' ); ?></a>
+			<a href="#" class="ablf-ignore-from-suggestion" data-id="<?php echo esc_attr( $broken->id ); ?>"><?php esc_html_e( 'None of these — ignore', 'pathfinder-link-repair' ); ?></a>
 		</p>
 	<?php else : ?>
-		<p class="ablf-suggestion-empty"><?php esc_html_e( 'No confident matches found on this site.', 'ai-broken-link-fixer' ); ?></p>
+		<p class="ablf-suggestion-empty"><?php esc_html_e( 'No confident matches found on this site.', 'pathfinder-link-repair' ); ?></p>
 	<?php endif; ?>
 </div>
