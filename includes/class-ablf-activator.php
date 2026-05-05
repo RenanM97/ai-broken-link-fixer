@@ -145,8 +145,6 @@ class ABLF_Activator {
 			'ablf_excluded_domains'    => '',
 			'ablf_auto_redirect'       => false,
 			'ablf_data_retention_days' => 90,
-			'ablf_license_key'         => '',
-			'ablf_license_tier'        => 'free',
 			'ablf_last_scan_at'        => '',
 		);
 		foreach ( $defaults as $key => $value ) {
@@ -221,7 +219,7 @@ class ABLF_Activator {
 		if ( ! wp_next_scheduled( 'ablf_process_scan_queue' ) ) {
 			wp_schedule_event( time() + 300, 'ablf_every_5_minutes', 'ablf_process_scan_queue' );
 		}
-		// Rolling 30-day reset — single event, rescheduled by ABLF_License::reset_monthly_usage().
+		// Rolling 30-day reset — single event, rescheduled by ABLF_Scheduler::reset_monthly_usage().
 		if ( ! wp_next_scheduled( 'ablf_reset_monthly_usage' ) ) {
 			$next = get_option( 'ablf_next_reset_date', '' );
 			$ts   = $next ? strtotime( $next ) : ( time() + 30 * DAY_IN_SECONDS );

@@ -2,19 +2,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-$is_pro = class_exists( 'ABLF_License' ) ? ABLF_License::is_pro() : false;
 ?>
 <div class="wrap ablf-wrap">
 	<h1><?php esc_html_e( 'Redirects', 'pathfinder-link-repair' ); ?></h1>
-
-	<?php if ( ! $is_pro ) : ?>
-		<div class="ablf-upgrade-overlay">
-			<h2>🔒 <?php esc_html_e( 'Pro feature', 'pathfinder-link-repair' ); ?></h2>
-			<p><?php esc_html_e( 'Upgrade to Pro to manage 301 redirects directly from WordPress.', 'pathfinder-link-repair' ); ?></p>
-		</div>
-		<?php return; ?>
-	<?php endif; ?>
 
 	<?php
 	if ( isset( $_GET['delete'] ) && check_admin_referer( 'ablf_delete_redirect' ) ) {

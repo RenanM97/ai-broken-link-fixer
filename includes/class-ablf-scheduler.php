@@ -9,8 +9,8 @@ class ABLF_Scheduler {
 		add_filter( 'cron_schedules', array( __CLASS__, 'add_custom_intervals' ) );
 		add_action( 'ablf_run_scheduled_scan', array( __CLASS__, 'run_scheduled_scan' ) );
 		add_action( 'ablf_process_scan_queue', array( 'ABLF_Scanner', 'process_queue_batch' ) );
-		// ABLF_License::reset_monthly_usage() handles DB reset + rescheduling the next 30-day event.
-		add_action( 'ablf_reset_monthly_usage', array( 'ABLF_License', 'reset_monthly_usage' ) );
+		// Rolling 30-day usage stat reset — informational only, no feature gating.
+		add_action( 'ablf_reset_monthly_usage', array( __CLASS__, 'reset_monthly_usage' ) );
 		add_action( 'ablf_cleanup_old_data', array( __CLASS__, 'run_cleanup' ) );
 	}
 
@@ -55,12 +55,6 @@ class ABLF_Scheduler {
 	}
 
 	public static function sync_scheduled_scan() {
-		// Scheduled scans are a Pro feature — silently clear and bail for free tier.
-		if ( class_exists( 'ABLF_License' ) && ! ABLF_License::can_use_scheduled_scans() ) {
-			wp_clear_scheduled_hook( 'ablf_run_scheduled_scan' );
-			return;
-		}
-
 		$frequency = get_option( 'ablf_scan_frequency', 'manual' );
 		$scheduled = wp_next_scheduled( 'ablf_run_scheduled_scan' );
 
@@ -107,6 +101,17 @@ class ABLF_Scheduler {
 		$days = (int) get_option( 'ablf_data_retention_days', 90 );
 		ABLF_DB_Handler::cleanup_old_data( $days );
 		ABLF_DB_Handler::clear_finished_queue();
+	}
+
+	/**
+	 * Roll the 30-day usage stat: zero out monthly counter, stamp the next reset,
+	 * and schedule the next single-fire cron event.
+	 */
+	public static function reset_monthly_usage() {
+		ABLF_DB_Handler::reset_monthly_usage();
+		$next = gmdate( 'Y-m-d H:i:s', strtotime( '+30 days' ) );
+		update_option( 'ablf_next_reset_date', $next );
+		wp_schedule_single_event( strtotime( $next ), 'ablf_reset_monthly_usage' );
 	}
 
 	public static function get_next_scan_time() {

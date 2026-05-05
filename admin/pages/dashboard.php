@@ -29,12 +29,7 @@ if ( 'allowlist' !== $current_filter ) {
 $last_scan = get_option( 'ablf_last_scan_at', '' );
 $progress  = ABLF_DB_Handler::queue_progress();
 
-$tier                 = class_exists( 'ABLF_License' ) ? ABLF_License::get_tier() : 'free';
-$monthly_limit        = class_exists( 'ABLF_License' ) ? ABLF_License::get_monthly_limit() : 100;
-$credits_remaining    = class_exists( 'ABLF_License' ) ? ABLF_License::get_credits_remaining() : $monthly_limit;
-$total_available      = class_exists( 'ABLF_License' ) ? ABLF_License::get_total_credits_available() : $monthly_limit;
-$low_credit_threshold = (int) floor( $monthly_limit * 0.20 );
-$show_low_credit      = ( $credits_remaining < $low_credit_threshold );
+$suggestions_this_month = ABLF_DB_Handler::get_usage_this_month();
 ?>
 <div class="wrap ablf-wrap">
 	<h1><?php esc_html_e( 'Broken Links Dashboard', 'pathfinder-link-repair' ); ?></h1>
@@ -53,24 +48,10 @@ $show_low_credit      = ( $credits_remaining < $low_credit_threshold );
 			<span class="ablf-stat-value"><?php echo esc_html( (int) $stats['ignored'] ); ?></span>
 		</div>
 		<div class="ablf-stat-card">
-			<span class="ablf-stat-label"><?php esc_html_e( 'Credits Remaining', 'pathfinder-link-repair' ); ?></span>
-			<span class="ablf-stat-value"><?php echo esc_html( number_format_i18n( $total_available ) ); ?></span>
+			<span class="ablf-stat-label"><?php esc_html_e( 'AI Suggestions This Month', 'pathfinder-link-repair' ); ?></span>
+			<span class="ablf-stat-value"><?php echo esc_html( number_format_i18n( $suggestions_this_month ) ); ?></span>
 		</div>
 	</div>
-
-	<?php if ( $show_low_credit ) : ?>
-		<div class="notice notice-warning ablf-low-credit-notice">
-			<p>
-				<?php
-				printf(
-					/* translators: %s: number of credits remaining */
-					esc_html__( 'Running low on credits — %s credits remaining this month.', 'pathfinder-link-repair' ),
-					'<strong>' . esc_html( number_format_i18n( $credits_remaining ) ) . '</strong>'
-				); ?>
-				&nbsp;<a href="<?php echo esc_url( ABLF_URL_CREDITS_500 ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Buy Credits', 'pathfinder-link-repair' ); ?></a>
-			</p>
-		</div>
-	<?php endif; ?>
 
 	<div class="ablf-scan-controls">
 		<button type="button" class="button button-primary" id="ablf-start-scan"><?php esc_html_e( 'Scan Now', 'pathfinder-link-repair' ); ?></button>

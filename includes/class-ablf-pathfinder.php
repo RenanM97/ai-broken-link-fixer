@@ -28,10 +28,6 @@ class ABLF_Pathfinder {
 			return new WP_Error( 'ablf_not_found', __( 'Broken link not found.', 'pathfinder-link-repair' ) );
 		}
 
-		if ( class_exists( 'ABLF_License' ) && ! ABLF_License::can_use_pathfinder() ) {
-			return new WP_Error( 'ablf_limit', __( 'No credits remaining. Purchase more credits or upgrade your plan.', 'pathfinder-link-repair' ) );
-		}
-
 		$api_key = self::get_server_api_key();
 		if ( ! $api_key ) {
 			return new WP_Error( 'ablf_no_key', __( 'Pathfinder is not configured. Please contact support.', 'pathfinder-link-repair' ) );
@@ -64,12 +60,7 @@ class ABLF_Pathfinder {
 		}
 
 		ABLF_DB_Handler::mark_pathfinder_run( $broken_link_id );
-
-		if ( class_exists( 'ABLF_License' ) ) {
-			ABLF_License::increment_usage();
-		} else {
-			ABLF_DB_Handler::increment_usage();
-		}
+		ABLF_DB_Handler::increment_usage();
 
 		return $stored;
 	}

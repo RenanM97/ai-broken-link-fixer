@@ -1,8 +1,8 @@
 === Pathfinder Link Repair ===
-Contributors: renanmarques
+Contributors: renanm97
 Tags: broken links, link checker, AI, SEO, link fixer
 Requires at least: 6.0
-Tested up to: 6.5
+Tested up to: 6.9
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
@@ -66,7 +66,6 @@ That's it. No technical knowledge required.
 * Provides plain-English reasoning for every suggestion
 * Falls back to recent content when context is ambiguous
 * Powered by Claude Haiku — fast, accurate, cost-effective
-* Fully branded as Pathfinder — no AI branding exposed to your users
 
 **⚡ One-Click Fixing**
 * Replaces broken URLs directly in post content
@@ -80,24 +79,17 @@ That's it. No technical knowledge required.
 * Indicates whether a 301 redirect was created
 * Exportable as CSV for reporting or client handoff
 
-**🔀 Redirect Manager** *(Pro)*
+**🔀 Redirect Manager**
 * Create and manage 301 redirects directly from WordPress
 * Add redirects manually or automatically on link fix
 * Tracks hit count for every redirect
 * No need for a separate redirect plugin
 
-**🗓️ Scheduled Scanning** *(Pro)*
+**🗓️ Scheduled Scanning**
 * Set scans to run daily, weekly, or monthly automatically
 * Runs silently in the background via WordPress cron
 * Never manually click Scan Now again
 * Shows next scheduled scan time in settings
-
-**💳 Credit System**
-* Free tier: 100 Pathfinder AI suggestions per month
-* Credits reset every 30 days from your install date — not on a fixed calendar date
-* Top-up credits available anytime — never expire
-* Visual credit meter in settings with color-coded usage indicator
-* Low credit warning when below 20% remaining
 
 **🛡️ Privacy and Security**
 * Your Anthropic API key is stored server-side only — never exposed to users or the browser
@@ -108,44 +100,11 @@ That's it. No technical knowledge required.
 
 ---
 
-= Free vs Pro =
-
-| Feature | Free | Pro | Agency |
-|---|---|---|---|
-| Broken link scanning | ✅ | ✅ | ✅ |
-| Pathfinder AI suggestions | ✅ | ✅ | ✅ |
-| Monthly AI credits | 100 | 1,000 | 5,000 |
-| Sites | 1 | 1 | Unlimited |
-| One-click fixing | ✅ | ✅ | ✅ |
-| Fix log | ✅ | ✅ | ✅ |
-| Allowlist manager | ✅ | ✅ | ✅ |
-| Scheduled auto-scans | ❌ | ✅ | ✅ |
-| Redirect manager | ❌ | ✅ | ✅ |
-| Managed AI (no API key needed) | ❌ | ✅ | ✅ |
-| Credit top-ups | ❌ | ✅ | ✅ |
-| Price | Free | $29/year | $79/year |
-
-[Upgrade to Pro](https://checkout.freemius.com/plugin/28106/plan/46424/licenses/1/)
-
----
-
-= Credit Top-Ups =
-
-Need more Pathfinder suggestions before your monthly reset? Top-up credits never expire and stack on top of your monthly allowance.
-
-* 500 credits — $5
-* 1,000 credits — $9
-* 5,000 credits — $39
-
----
-
 = Who Is This For? =
 
 **Content-heavy sites** — Blogs, news sites, and magazines with hundreds of posts accumulate broken links over time as external URLs change and internal content gets reorganized. Pathfinder Link Repair keeps your link profile clean automatically.
 
 **SEO-focused site owners** — Broken links are a known negative SEO signal. Cleaning them up is one of the fastest wins available in technical SEO. Pathfinder makes it fast enough to do regularly.
-
-**Agencies and freelancers** — Managing broken links across multiple client sites is tedious manual work. The Agency plan covers unlimited sites with a shared pool of 5,000 monthly AI suggestions. Fix links across your entire client portfolio from one plugin.
 
 **WordPress developers** — Building sites for clients who need to maintain link health over time. Install once, configure, and hand off a self-maintaining plugin that doesn't require technical knowledge to operate.
 
@@ -159,7 +118,43 @@ Pathfinder Link Repair sends link context data (broken URL, anchor text, surroun
 
 The plugin does not collect, store, or transmit any visitor data. All data stored by the plugin (broken links, suggestions, fix log, redirects) lives entirely in your WordPress database.
 
-For Pro and Agency users, license validation is handled by Freemius. See the [Freemius Privacy Policy](https://freemius.com/privacy/) for details on what data Freemius collects.
+See the **External services** section below for full details on what is sent to the Anthropic API and when.
+
+---
+
+== External services ==
+
+This plugin connects to the **Anthropic API** to generate AI-powered replacement-URL suggestions for broken links. It is the only external service the plugin uses.
+
+= What the service is =
+
+The Anthropic API is a third-party AI service operated by Anthropic, PBC. Pathfinder Link Repair uses it to run the Claude Haiku language model, which ranks candidate replacement URLs from your own site and explains why each is a good match.
+
+= What data is sent and when =
+
+Data is **only** sent to the Anthropic API when a logged-in administrator clicks the **Ask Pathfinder** button (or runs the equivalent bulk action) for a specific broken link. No data is sent during normal scanning, on the front end, or in the background.
+
+For each request, the plugin sends:
+
+* The broken URL (e.g. `https://example.com/old-page`)
+* The anchor text of the broken link
+* A short snippet of surrounding paragraph text from the post where the link appears
+* The title of the post the broken link was found on
+* A list of up to ~8 candidate replacement URLs from your own site, with their titles and short excerpts
+* The Anthropic API key you configured in **Broken Links → Settings**
+
+The plugin does **not** send visitor data, post content beyond the snippet around the broken link, user account information, login credentials, or any other personal data.
+
+Requests are sent to: `https://api.anthropic.com/v1/messages`
+
+= Anthropic's terms and policies =
+
+By configuring an Anthropic API key and using the Ask Pathfinder feature, you are bound by Anthropic's terms of use and privacy policy:
+
+* **Terms of Service:** [https://www.anthropic.com/legal/consumer-terms](https://www.anthropic.com/legal/consumer-terms)
+* **Privacy Policy:** [https://www.anthropic.com/legal/privacy](https://www.anthropic.com/legal/privacy)
+
+If you do not configure an Anthropic API key, no data is ever sent to the Anthropic API and the plugin's scanning, allowlist, redirect, and fix-log features all continue to work normally.
 
 ---
 
@@ -183,19 +178,16 @@ For Pro and Agency users, license validation is handled by Freemius. See the [Fr
 5. Click **Activate Plugin**
 6. Go to **Broken Links** in your admin sidebar
 
-= First-Time Setup (Free Tier) =
+= First-Time Setup =
 
-The free tier works immediately after activation with no configuration required. However to use Pathfinder AI suggestions you will need a free Anthropic API key:
+The plugin works immediately after activation with no configuration required. To use Pathfinder AI suggestions you will need an Anthropic API key:
 
-1. Go to [console.anthropic.com](https://console.anthropic.com) and create a free account
+1. Go to [console.anthropic.com](https://console.anthropic.com) and create an account
 2. Navigate to **API Keys** and click **Create Key**
 3. Copy your API key (it begins with `sk-ant-`)
 4. In your WordPress admin go to **Broken Links → Settings**
 5. Paste your API key in the **Pathfinder AI** section
-6. Click **Test Connection** to verify it works
-7. Click **Save Settings**
-
-New Anthropic accounts include free credits — most small sites will use Pathfinder for months before needing to pay anything.
+6. Click **Save Settings**
 
 = First Scan =
 
@@ -205,17 +197,6 @@ New Anthropic accounts include free credits — most small sites will use Pathfi
 4. Broken links appear in the dashboard as the scan completes
 5. Click **Ask Pathfinder** next to any broken link to get AI suggestions
 6. Click **Fix** next to your preferred suggestion to apply it
-
-= Pro Setup =
-
-Pro and Agency users do not need an Anthropic API key. Pathfinder is fully managed:
-
-1. Purchase a Pro or Agency license at the link above
-2. Go to **Broken Links → Settings**
-3. Enter your license key in the **License** field
-4. Click **Activate License**
-5. Pathfinder is now fully managed — no API key needed
-6. Optionally configure scheduled scans under **Scan Settings**
 
 ---
 
@@ -243,7 +224,7 @@ No. All scanning and AI processing happens in the WordPress admin only and runs 
 
 = How often should I run a scan? =
 
-For most sites, weekly is sufficient. Active blogs and news sites benefit from daily scanning. Pro and Agency users can configure automatic scheduled scans so they never have to think about it.
+For most sites, weekly is sufficient. Active blogs and news sites benefit from daily scanning. You can configure automatic scheduled scans under **Settings → Scan Settings** so you never have to think about it.
 
 = What HTTP status codes does the scanner flag as broken? =
 
@@ -276,21 +257,9 @@ Optionally, yes. In **Settings → On Fix** you can enable automatic 301 redirec
 
 The plugin does not automatically undo fixes, but every fix is recorded in the Fix Log with the original and replacement URLs. You can manually restore the original URL by editing the post directly in WordPress.
 
-= What is the credit system? =
-
-Each time you click "Ask Pathfinder" and receive AI suggestions, one credit is consumed. Credits reset every 30 days from your install date (not on a fixed calendar date). Free users get 100 credits per month. Pro users get 1,000. Agency users get 5,000 shared across all their sites. Credit top-ups are available for purchase and never expire.
-
-= Do credits roll over? =
-
-Monthly allowance credits do not roll over — they reset every 30 days. However purchased top-up credits never expire and accumulate until used.
-
-= I am a Pro user — do I need an Anthropic API key? =
-
-No. Pro and Agency users have fully managed AI — Pathfinder is powered by our infrastructure. You do not need to create an Anthropic account or manage API keys. Just install, activate your license, and Pathfinder works immediately.
-
 = How is my data handled? =
 
-When you use Pathfinder, the broken link's context (anchor text, surrounding paragraph, and candidate replacement URLs from your site) is sent to the Anthropic API for processing. No visitor data, no personal information, and no sensitive content is transmitted. See the Privacy Policy section above for full details.
+When you use Pathfinder, the broken link's context (anchor text, surrounding paragraph, and candidate replacement URLs from your site) is sent to the Anthropic API for processing. No visitor data, no personal information, and no sensitive content is transmitted. See the **External services** section above for full details.
 
 = Is this plugin compatible with page builders? =
 
@@ -298,12 +267,11 @@ The scanner extracts links from WordPress post content (the `post_content` field
 
 = Is this compatible with multisite? =
 
-The Agency plan supports unlimited sites. For WordPress multisite networks, install the plugin on each subsite individually. Network-wide multisite activation is not currently supported but is planned for a future release.
+For WordPress multisite networks, install the plugin on each subsite individually. Network-wide multisite activation is not currently supported but is planned for a future release.
 
 = Where can I get support? =
 
-* For general questions and community support visit the [WordPress.org support forum](https://wordpress.org/support/plugin/pathfinder-link-repair/)
-* For Pro and Agency license holders, priority support is available through your Freemius account dashboard
+For general questions and community support visit the [WordPress.org support forum](https://wordpress.org/support/plugin/pathfinder-link-repair/).
 
 ---
 
@@ -312,8 +280,8 @@ The Agency plan supports unlimited sites. For WordPress multisite networks, inst
 1. **Dashboard** — The main broken links dashboard showing scan controls, summary cards, and the broken links table with Pathfinder suggestion cards expanded.
 2. **Pathfinder Suggestions** — The AI suggestion card showing ranked replacement URLs with confidence scores and plain-English reasoning.
 3. **Fix Log** — The audit trail showing every fix applied with original URLs, replacement URLs, timestamps, and redirect status.
-4. **Redirect Manager** — The 301 redirect manager showing active redirects with hit counts (Pro feature).
-5. **Settings** — The settings page showing the credit usage meter, scan configuration, exclusion lists, and notification options.
+4. **Redirect Manager** — The 301 redirect manager showing active redirects with hit counts.
+5. **Settings** — The settings page showing scan configuration, exclusion lists, and notification options.
 6. **Allowlist** — The allowlist tab showing permanently excluded URLs and domains with options to add and remove entries.
 
 ---
@@ -328,13 +296,10 @@ The Agency plan supports unlimited sites. For WordPress multisite networks, inst
 * Fix log with CSV export
 * Allowlist manager for permanent URL exclusions
 * Excluded domains and URLs settings
-* Redirect manager with 301 redirect creation and hit tracking (Pro)
-* Scheduled automatic scanning — daily, weekly, monthly (Pro)
-* Credit system with monthly allowance and top-up purchases
-* 30-day rolling credit reset from install date
+* Redirect manager with 301 redirect creation and hit tracking
+* Scheduled automatic scanning — daily, weekly, monthly
 * Ignore and restore broken links
 * Bulk actions — ignore selected, restore selected, add to allowlist
-* Freemius integration for Pro and Agency license management
 * Full i18n support with .pot translation template
 * Complete uninstall cleanup
 

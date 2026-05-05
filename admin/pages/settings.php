@@ -5,26 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $post_types = get_post_types( array( 'public' => true ), 'objects' );
 $selected   = (array) get_option( 'ablf_scan_post_types', array( 'post', 'page' ) );
-
-$tier              = class_exists( 'ABLF_License' ) ? ABLF_License::get_tier() : 'free';
-$is_pro            = class_exists( 'ABLF_License' ) ? ABLF_License::is_pro() : false;
-$monthly_limit     = class_exists( 'ABLF_License' ) ? ABLF_License::get_monthly_limit() : 100;
-$monthly_used      = class_exists( 'ABLF_License' ) ? ABLF_License::get_usage_this_month() : 0;
-$credits_remaining = class_exists( 'ABLF_License' ) ? ABLF_License::get_credits_remaining() : $monthly_limit;
-$topup_credits     = class_exists( 'ABLF_License' ) ? ABLF_License::get_topup_credits() : 0;
-$total_available   = class_exists( 'ABLF_License' ) ? ABLF_License::get_total_credits_available() : $monthly_limit;
-$usage_percent = min( 100, (int) round( ( $monthly_used / max( 1, $monthly_limit ) ) * 100 ) );
-if ( $usage_percent < 50 ) {
-	$bar_color = 'green';
-} elseif ( $usage_percent <= 80 ) {
-	$bar_color = 'orange';
-} else {
-	$bar_color = 'red';
-}
-$next_reset_raw = get_option( 'ablf_next_reset_date', '' );
-$next_reset_fmt = $next_reset_raw
-	? date_i18n( 'F j, Y', strtotime( $next_reset_raw ) )
-	: __( 'within 30 days', 'pathfinder-link-repair' );
 ?>
 <div class="wrap ablf-wrap">
 	<h1><?php esc_html_e( 'Pathfinder Link Repair — Settings', 'pathfinder-link-repair' ); ?></h1>
@@ -36,120 +16,30 @@ $next_reset_fmt = $next_reset_raw
 	<form method="post" action="options.php" class="ablf-settings-form">
 		<?php settings_fields( 'ablf_settings' ); ?>
 
-		<h2>
-			<?php esc_html_e( 'Pathfinder Credits', 'pathfinder-link-repair' ); ?>
-			<?php
-			$tier_labels = array(
-				'free'   => __( 'Free Plan', 'pathfinder-link-repair' ),
-				'pro'    => __( 'Pro Plan', 'pathfinder-link-repair' ),
-				'agency' => __( 'Agency Plan', 'pathfinder-link-repair' ),
-			);
-			$tier_label = isset( $tier_labels[ $tier ] ) ? $tier_labels[ $tier ] : $tier_labels['free'];
-			?>
-			<span class="ablf-plan-badge ablf-plan-<?php echo esc_attr( $tier ); ?>"><?php echo esc_html( $tier_label ); ?></span>
-		</h2>
-		<div class="ablf-credit-card">
-
-			<?php if ( ! $is_pro ) : ?>
-				<div class="ablf-credit-section ablf-upgrade-section">
-					<h3 class="ablf-credit-section-title"><?php esc_html_e( 'Upgrade Your Plan', 'pathfinder-link-repair' ); ?></h3>
-					<p class="ablf-section-desc"><?php esc_html_e( 'Get more credits per month and unlock scheduled scans.', 'pathfinder-link-repair' ); ?></p>
-					<div class="ablf-plan-grid">
-						<div class="ablf-plan-tile">
-							<div class="ablf-plan-tile-name"><?php esc_html_e( 'Pro', 'pathfinder-link-repair' ); ?></div>
-							<div class="ablf-plan-tile-price">$29<span>/year</span></div>
-							<div class="ablf-plan-tile-desc"><?php esc_html_e( '1,000 credits/month · Scheduled scans', 'pathfinder-link-repair' ); ?></div>
-							<a href="<?php echo esc_url( ABLF_URL_PRO ); ?>" class="button button-primary" target="_blank" rel="noopener noreferrer">
-								<?php esc_html_e( 'Upgrade to Pro', 'pathfinder-link-repair' ); ?>
-							</a>
-						</div>
-						<div class="ablf-plan-tile">
-							<div class="ablf-plan-tile-name"><?php esc_html_e( 'Agency', 'pathfinder-link-repair' ); ?></div>
-							<div class="ablf-plan-tile-price">$79<span>/year</span></div>
-							<div class="ablf-plan-tile-desc"><?php esc_html_e( '5,000 credits/month · Everything in Pro', 'pathfinder-link-repair' ); ?></div>
-							<a href="<?php echo esc_url( ABLF_URL_AGENCY ); ?>" class="button" target="_blank" rel="noopener noreferrer">
-								<?php esc_html_e( 'Upgrade to Agency', 'pathfinder-link-repair' ); ?>
-							</a>
-						</div>
-					</div>
-				</div>
-			<?php endif; ?>
-
-			<div class="ablf-credit-section">
-				<h3 class="ablf-credit-section-title"><?php esc_html_e( 'Current Usage', 'pathfinder-link-repair' ); ?></h3>
-
-				<p class="ablf-credit-total">
+		<h2><?php esc_html_e( 'Pathfinder AI', 'pathfinder-link-repair' ); ?></h2>
+		<table class="form-table" role="presentation">
+			<tr>
+				<th scope="row"><label for="ablf_anthropic_api_key"><?php esc_html_e( 'Anthropic API Key', 'pathfinder-link-repair' ); ?></label></th>
+				<td>
 					<?php
-					printf(
-						/* translators: %s: number of credits remaining */
-						esc_html__( '%s credits remaining this month', 'pathfinder-link-repair' ),
-						'<strong>' . esc_html( number_format_i18n( $total_available ) ) . '</strong>'
-					); ?>
-				</p>
-
-				<div class="ablf-credit-bar-wrap">
-					<div class="ablf-credit-bar <?php echo esc_attr( $bar_color ); ?>" style="width:<?php echo esc_attr( $usage_percent ); ?>%;">
-						<?php if ( $usage_percent >= 10 ) : ?>
-							<span class="ablf-credit-bar-label"><?php echo esc_html( $usage_percent ); ?>%</span>
-						<?php endif; ?>
-					</div>
-				</div>
-
-				<ul class="ablf-credit-stats">
-					<li>
-						<span class="ablf-credit-stat-label"><?php esc_html_e( 'Monthly usage', 'pathfinder-link-repair' ); ?></span>
-						<span class="ablf-credit-stat-value">
+					$key_constant_set = defined( 'ABLF_ANTHROPIC_API_KEY' ) && ! empty( ABLF_ANTHROPIC_API_KEY );
+					$has_stored_key   = (bool) get_option( 'ablf_anthropic_api_key', '' );
+					if ( $key_constant_set ) : ?>
+						<p class="description"><?php esc_html_e( 'API key is set via the ABLF_ANTHROPIC_API_KEY constant in wp-config.php and cannot be changed here.', 'pathfinder-link-repair' ); ?></p>
+					<?php else : ?>
+						<input type="password" id="ablf_anthropic_api_key" name="ablf_anthropic_api_key" value="" class="regular-text" autocomplete="off" placeholder="<?php echo $has_stored_key ? esc_attr__( '••••••••  (saved — leave blank to keep)', 'pathfinder-link-repair' ) : 'sk-ant-...'; ?>">
+						<p class="description">
 							<?php
 							printf(
-								/* translators: %1$s: number of credits used, %2$s: total monthly credit allowance */
-								esc_html__( '%1$s / %2$s', 'pathfinder-link-repair' ),
-								esc_html( number_format_i18n( $monthly_used ) ),
-								esc_html( number_format_i18n( $monthly_limit ) )
+								/* translators: %s: link to Anthropic console */
+								esc_html__( 'Required for AI suggestions. Get a key at %s. The key is encrypted and stored server-side; it is never exposed to the browser.', 'pathfinder-link-repair' ),
+								'<a href="https://console.anthropic.com" target="_blank" rel="noopener noreferrer">console.anthropic.com</a>'
 							); ?>
-						</span>
-					</li>
-					<li>
-						<span class="ablf-credit-stat-label"><?php esc_html_e( 'Monthly remaining', 'pathfinder-link-repair' ); ?></span>
-						<span class="ablf-credit-stat-value"><?php echo esc_html( number_format_i18n( $credits_remaining ) ); ?></span>
-					</li>
-					<li>
-						<span class="ablf-credit-stat-label"><?php esc_html_e( 'Top-up credits', 'pathfinder-link-repair' ); ?></span>
-						<span class="ablf-credit-stat-value"><?php echo esc_html( number_format_i18n( $topup_credits ) ); ?></span>
-					</li>
-					<li>
-						<span class="ablf-credit-stat-label"><?php esc_html_e( 'Total available', 'pathfinder-link-repair' ); ?></span>
-						<span class="ablf-credit-stat-value"><strong><?php echo esc_html( number_format_i18n( $total_available ) ); ?></strong></span>
-					</li>
-					<li>
-						<span class="ablf-credit-stat-label"><?php esc_html_e( 'Next reset', 'pathfinder-link-repair' ); ?></span>
-						<span class="ablf-credit-stat-value"><?php echo esc_html( $next_reset_fmt ); ?></span>
-					</li>
-				</ul>
-			</div>
-
-			<div class="ablf-credit-section ablf-topup-section">
-				<h3 class="ablf-credit-section-title"><?php esc_html_e( 'Need More Credits?', 'pathfinder-link-repair' ); ?></h3>
-				<p class="ablf-section-desc"><?php esc_html_e( 'Top-up credits never expire and stack with your monthly allowance.', 'pathfinder-link-repair' ); ?></p>
-				<div class="ablf-topup-grid">
-					<a href="<?php echo esc_url( ABLF_URL_CREDITS_500 ); ?>" class="ablf-topup-tile" target="_blank" rel="noopener noreferrer">
-						<span class="ablf-topup-tile-amount">500</span>
-						<span class="ablf-topup-tile-label"><?php esc_html_e( 'credits', 'pathfinder-link-repair' ); ?></span>
-						<span class="ablf-topup-tile-price">$5</span>
-					</a>
-					<a href="<?php echo esc_url( ABLF_URL_CREDITS_1000 ); ?>" class="ablf-topup-tile" target="_blank" rel="noopener noreferrer">
-						<span class="ablf-topup-tile-amount">1,000</span>
-						<span class="ablf-topup-tile-label"><?php esc_html_e( 'credits', 'pathfinder-link-repair' ); ?></span>
-						<span class="ablf-topup-tile-price">$9</span>
-					</a>
-					<a href="<?php echo esc_url( ABLF_URL_CREDITS_5000 ); ?>" class="ablf-topup-tile" target="_blank" rel="noopener noreferrer">
-						<span class="ablf-topup-tile-amount">5,000</span>
-						<span class="ablf-topup-tile-label"><?php esc_html_e( 'credits', 'pathfinder-link-repair' ); ?></span>
-						<span class="ablf-topup-tile-price">$39</span>
-					</a>
-				</div>
-			</div>
-
-		</div>
+						</p>
+					<?php endif; ?>
+				</td>
+			</tr>
+		</table>
 
 		<h2><?php esc_html_e( 'Scan Settings', 'pathfinder-link-repair' ); ?></h2>
 		<table class="form-table" role="presentation">
@@ -174,13 +64,11 @@ $next_reset_fmt = $next_reset_raw
 					);
 					?>
 					<select name="ablf_scan_frequency" id="ablf_scan_frequency">
-						<?php foreach ( $freq_options as $val => $label ) :
-							$lock = ( 'manual' !== $val && ! $is_pro ) ? ' 🔒' : '';
-						?>
-							<option value="<?php echo esc_attr( $val ); ?>" <?php selected( $current_freq, $val ); ?>><?php echo esc_html( $label . $lock ); ?></option>
+						<?php foreach ( $freq_options as $val => $label ) : ?>
+							<option value="<?php echo esc_attr( $val ); ?>" <?php selected( $current_freq, $val ); ?>><?php echo esc_html( $label ); ?></option>
 						<?php endforeach; ?>
 					</select>
-					<?php if ( $is_pro && 'manual' !== $current_freq ) :
+					<?php if ( 'manual' !== $current_freq ) :
 						$next_scan = class_exists( 'ABLF_Scheduler' ) ? ABLF_Scheduler::get_next_scan_time() : '';
 						if ( $next_scan ) : ?>
 							<?php /* translators: %s: date and time of next scheduled scan */ ?>
@@ -205,12 +93,9 @@ $next_reset_fmt = $next_reset_raw
 				<th scope="row"><?php esc_html_e( 'Auto-create 301 Redirect', 'pathfinder-link-repair' ); ?></th>
 				<td>
 					<label>
-						<input type="checkbox" name="ablf_auto_redirect" value="1" <?php checked( (bool) get_option( 'ablf_auto_redirect', false ) ); ?> <?php disabled( ! $is_pro ); ?>>
+						<input type="checkbox" name="ablf_auto_redirect" value="1" <?php checked( (bool) get_option( 'ablf_auto_redirect', false ) ); ?>>
 						<?php esc_html_e( 'When a link is fixed, create a 301 from the old URL.', 'pathfinder-link-repair' ); ?>
 					</label>
-					<?php if ( ! $is_pro ) : ?>
-						<p class="description"><?php esc_html_e( 'Pro feature.', 'pathfinder-link-repair' ); ?></p>
-					<?php endif; ?>
 				</td>
 			</tr>
 		</table>
@@ -227,10 +112,6 @@ $next_reset_fmt = $next_reset_raw
 						<?php endforeach; ?>
 					</select>
 				</td>
-			</tr>
-			<tr>
-				<th scope="row"><label for="ablf_license_key"><?php esc_html_e( 'License Key', 'pathfinder-link-repair' ); ?></label></th>
-				<td><input type="text" id="ablf_license_key" name="ablf_license_key" value="<?php echo esc_attr( get_option( 'ablf_license_key', '' ) ); ?>" class="regular-text"></td>
 			</tr>
 		</table>
 

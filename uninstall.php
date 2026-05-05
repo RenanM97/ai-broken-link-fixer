@@ -35,8 +35,6 @@ $options = array(
 	'ablf_excluded_domains',
 	'ablf_auto_redirect',
 	'ablf_data_retention_days',
-	'ablf_license_key',
-	'ablf_license_tier',
 	'ablf_db_version',
 	'ablf_last_scan_at',
 	'ablf_plugin_version',
@@ -57,9 +55,4 @@ $cron_hooks = array(
 
 foreach ( $cron_hooks as $hook ) {
 	wp_clear_scheduled_hook( $hook );
-}
-
-// Freemius cleanup — remove its stored connections for this plugin.
-if ( function_exists( 'ablf_fs' ) ) {
-	ablf_fs()->remove_connections();
 }

@@ -139,17 +139,11 @@ class ABLF_Admin {
 				' <a href="' . esc_url( admin_url( 'admin.php?page=ablf-settings' ) ) . '">' .
 				esc_html__( 'Go to Settings', 'pathfinder-link-repair' ) . '</a></p></div>';
 		}
-
-		if ( class_exists( 'ABLF_License' ) && ! ABLF_License::can_use_pathfinder() ) {
-			echo '<div class="notice notice-info"><p>' .
-				esc_html__( 'You have reached the free Pathfinder limit for this month. Upgrade to Pro for unlimited suggestions.', 'pathfinder-link-repair' ) .
-				'</p></div>';
-		}
 	}
 
 	public static function register_settings() {
 		$fields = array(
-			'ablf_api_key'             => array( __CLASS__, 'sanitize_api_key' ),
+			'ablf_anthropic_api_key'   => array( __CLASS__, 'sanitize_api_key' ),
 			'ablf_scan_frequency'      => array( __CLASS__, 'sanitize_scan_frequency' ),
 			'ablf_scan_post_types'     => array( __CLASS__, 'sanitize_array' ),
 			'ablf_batch_size'          => 'absint',
@@ -157,26 +151,12 @@ class ABLF_Admin {
 			'ablf_concurrent_requests' => 'absint',
 			'ablf_auto_redirect'       => array( __CLASS__, 'sanitize_bool' ),
 			'ablf_data_retention_days' => 'absint',
-			'ablf_license_key'         => 'sanitize_text_field',
 		);
 		foreach ( $fields as $key => $cb ) {
 			register_setting( 'ablf_settings', $key, array( 'sanitize_callback' => $cb ) );
 		}
 
-		add_action( 'update_option_ablf_license_key', array( __CLASS__, 'sync_license_tier' ), 10, 2 );
-		add_action( 'add_option_ablf_license_key', array( __CLASS__, 'sync_license_tier_added' ), 10, 2 );
 		add_action( 'update_option_ablf_scan_frequency', array( 'ABLF_Scheduler', 'sync_scheduled_scan' ) );
-	}
-
-	public static function sync_license_tier( $old, $new ) {
-		if ( ! class_exists( 'ABLF_License' ) ) {
-			return;
-		}
-		update_option( 'ablf_license_tier', ABLF_License::validate_license_key( $new ) );
-	}
-
-	public static function sync_license_tier_added( $option, $value ) {
-		self::sync_license_tier( '', $value );
 	}
 
 	public static function sanitize_array( $value ) {
@@ -196,22 +176,15 @@ class ABLF_Admin {
 		if ( ! in_array( $value, $allowed, true ) ) {
 			return 'manual';
 		}
-		if ( 'manual' !== $value && class_exists( 'ABLF_License' ) && ! ABLF_License::can_use_scheduled_scans() ) {
-			add_settings_error(
-				'ablf_scan_frequency',
-				'ablf_pro_required',
-				__( 'Scheduled scans are a Pro feature. Upgrade to unlock automatic scanning.', 'pathfinder-link-repair' ),
-				'warning'
-			);
-			return 'manual';
-		}
 		return $value;
 	}
 
 	public static function sanitize_api_key( $value ) {
 		$value = sanitize_text_field( (string) $value );
+		// Empty submission means "leave the saved key in place" — don't wipe it.
 		if ( '' === $value ) {
-			return '';
+			$existing = get_option( 'ablf_anthropic_api_key', '' );
+			return $existing;
 		}
 		return ablf_encrypt( $value );
 	}

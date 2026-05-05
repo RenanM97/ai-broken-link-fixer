@@ -71,9 +71,6 @@ class ABLF_Redirect {
 		if ( is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 			return;
 		}
-		if ( class_exists( 'ABLF_License' ) && ! ABLF_License::is_pro() ) {
-			return;
-		}
 
 		$request = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
 		if ( ! $request ) {

@@ -43,7 +43,7 @@ class ABLF_Fixer {
 		ABLF_DB_Handler::update_broken_link_status( $broken_link_id, 'fixed' );
 
 		$redirect_created = 0;
-		if ( get_option( 'ablf_auto_redirect', false ) && class_exists( 'ABLF_Redirect' ) && class_exists( 'ABLF_License' ) && ABLF_License::is_pro() ) {
+		if ( get_option( 'ablf_auto_redirect', false ) && class_exists( 'ABLF_Redirect' ) ) {
 			ABLF_Redirect::create_redirect( $original, $replacement_url );
 			$redirect_created = 1;
 		}
